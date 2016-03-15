@@ -1,13 +1,10 @@
 # reliable-master
 
 [![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
 [![node version][node-image]][node-url]
 
 [npm-image]: https://img.shields.io/npm/v/reliable-master.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/reliable-master
-[travis-image]: https://img.shields.io/travis/reliablejs/reliable-master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/reliablejs/reliable-master
 [node-image]: https://img.shields.io/badge/node.js-%3E=_4.2.1-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
 
