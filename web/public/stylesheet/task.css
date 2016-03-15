@@ -1,0 +1,140 @@
+.alert {
+  margin: 0;
+  padding: 10px 15px;
+}
+.control-label {
+  margin-bottom: 0;
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+
+.alert-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+}
+
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+
+.build-widget {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+  background-clip: padding-box;
+  background-color: #fbfbfb;
+  box-shadow: 0 2px 1px rgba(0,0,0,.04), inset 0 -1px 2px rgba(0,0,0,.05);
+}
+
+.trace {
+  padding: 20px;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+  background-clip: padding-box;
+  background-color: #fbfbfb;
+  font-family: "Menlo", "Liberation Mono", "Consolas", "DejaVu Sans Mono", "Ubuntu Mono", "Courier New", "andale mono", "lucida console", monospace;
+  box-shadow: 0 2px 1px rgba(0,0,0,.04), inset 0 -1px 2px rgba(0,0,0,.05);
+}
+
+.breadcrumb {
+  margin-top: 15px;
+}
+
+.bash img {
+  width: 30%;
+  margin-left: 30px;
+  cursor: pointer;
+}
+
+#image-modal img {
+  max-width: 100%;
+}
+
+#image-modal .modal-dialog {
+  width: 85%;
+}
+
+#image-modal .modal-content {
+  background: none;
+  box-shadow: none;
+  border: 0;
+}
+
+#image-modal .close {
+  position: absolute;
+  margin-left: 50%;
+  z-index: 1;
+  font-size: 50px;
+  outline: none;
+}
+
+#image-modal .modal-body {
+  text-align: center;
+}
+
+#image-modal .modal-header {
+  border: 0;
+}
+
+/* bootstrap affix style */
+.main-right.affix {
+  top: 10px;
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .main-right.affix {
+    position: relative;
+    width: auto;
+    margin-left: 0;
+    top: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .main-right.affix {
+    width: 242.5px;
+    margin-left: 727.5px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .main-right.affix {
+    width: 292.5px;
+    margin-left: 877.5px;
+  }
+}
+
+/* performance table */
+table {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+tr:first-child {
+  background-color: #EDEDED;
+}
+
+th, td {
+  padding: 5px 10px;
+}

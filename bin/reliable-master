@@ -1,0 +1,120 @@
+#!/usr/bin/env node
+/* ================================================================
+ * reliable-master by xdf(xudafeng[at]126.com)
+ *
+ * first created at : Tue Mar 17 2015 00:16:10 GMT+0800 (CST)
+ *
+ * ================================================================
+ * Copyright 2014 xdf
+ *
+ * Licensed under the MIT License
+ * You may not use this file except in compliance with the License.
+ *
+ * ================================================================ */
+
+'use strict';
+
+const co = require('co');
+const fs = require('fs');
+const path = require('path');
+const EOL = require('os').EOL;
+const chalk = require('chalk');
+const update = require('npm-update');
+const program = require('commander');
+const spawn = require('child_process').spawn;
+
+const pkg = require('../package');
+const signal = require('../init/signal');
+
+program
+  .option('-s, --signal <s>',  'send signal to process: stop, restart')
+  .option('-v, --versions',    'output version infomation')
+  .usage('<command> [options] [arguments]')
+  .helpInformation = function() {
+    return [
+      '',
+      '  ' + chalk.white(pkg.description),
+      '',
+      '  Usage:',
+      '    ' + this._name + ' ' + this.usage(),
+      '',
+      '  Commands:',
+      '    server          reliable server',
+      '    adduser         add one user',
+      '',
+      '  Options:',
+      '' + this.optionHelp().replace(/^/gm, '    '),
+      '',
+      '  Further help:',
+      '',
+      '  ' + chalk.white(pkg.homepage),
+      '',
+      ''
+    ].join(EOL);
+  };
+
+program.parse(process.argv);
+
+if (program.versions) {
+  console.info(`${EOL}  ${pkg.version}${EOL}`);
+  process.exit(0);
+}
+
+if (program.signal) {
+  signal(program.signal);
+  return;
+}
+
+const cmd = program.args[0];
+
+if (!cmd) {
+  return program.help();
+}
+
+const file = path.join(__dirname, `${pkg.name}-${cmd}`);
+
+if (!fs.existsSync(file)) {
+  console.log('%s  command `%s` not found', EOL, chalk.yellow(cmd));
+  return program.help();
+}
+
+var printInfo = function(lines) {
+  var maxLength = 0;
+  lines.forEach(line => {
+    maxLength = line.length > maxLength ? line.length : maxLength;
+  });
+
+  var res = [new Array(maxLength + 7).join('*')];
+
+  lines.forEach(line => {
+    res.push(`*  ${line + new Array(maxLength - line.length + 1).join(' ')}  *`);
+  });
+
+  res.push(new Array(maxLength + 7).join('*'));
+  console.log(chalk.white(`${EOL}${res.join(EOL)}${EOL}`));
+};
+
+function init(error, data) {
+
+  if (data && data.version && pkg.version !== data.version) {
+    printInfo([`version ${data.version} is outdate`, `run: npm i -g ${pkg.name}@${pkg.version}`]);
+  }
+
+  let args = program.rawArgs.slice(3);
+  args.unshift(file);
+
+  const bootstrap = spawn('node', args, {
+    stdio: [process.stdin, process.stdout, 2, 'ipc']
+  });
+
+  bootstrap.on('close', (code) => {
+    process.exit(`process exited with code ${code}`);
+  });
+}
+
+co(update, {
+  pkg: pkg,
+  callback: init
+}).catch((e) => {
+  console.log('Error happened when npm update.')
+});

@@ -1,0 +1,70 @@
+.login.panel.list {
+  margin: 50px auto 0;
+  padding-top: 35px;
+  width: 600px;
+}
+#forgot {
+  padding-left: 20px;
+}
+
+#social-login {
+  position: relative;
+  list-style: none;
+  margin: 20px 0 0 0;
+  padding: 30px 0 0 0;
+  border-top: 1px solid #ccc;
+}
+
+#social-login li {
+  float: left;
+  margin-right: 15px;
+}
+
+#social-login .btn {
+  position: relative;
+  margin: 0;
+  padding-left: 40px;
+  width: 100px;
+  height: 36px;
+  text-align: left;
+}
+
+#social-login:before {
+  content: 'or';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin: -11px 0 0 -7px;
+  padding: 0 3px;
+  background-color: #fbfbfb;
+  font-weight: 700;
+}
+
+#social-login .btn:before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  display: inline-block;
+  margin-right: 10px;
+  width: 24px;
+  height: 24px;
+  background-size: 24px;
+}
+
+#social-login .btn.github-btn:before {
+  background-image: url('../images/github.svg');
+}
+
+#social-login .btn.gitlab-btn:before {
+  background-image: url('../images/gitlab.png');
+}
+
+.clearfix:after {
+  clear: both;
+  content: '';
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+

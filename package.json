@@ -1,0 +1,67 @@
+{
+  "name": "reliable-master",
+  "version": "1.0.0",
+  "description": "Distributed reliable continuous integration service.",
+  "keywords": [
+    "ci",
+    "automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:reliablejs/reliable-master.git"
+  },
+  "dependencies": {
+    "ansi-to-html": "~0.3.0",
+    "babel": "~5.6.14",
+    "badgeboard": "~0.1.1",
+    "bcryptjs": "~2.2.1",
+    "chalk": "~1.1.1",
+    "co": "~4.6",
+    "co-body": "~1.1.0",
+    "co-request": "~0.2.0",
+    "commander": "~2.0.0",
+    "detect-port": "~0.1.3",
+    "koa": "~0.21.0",
+    "koa-csrf": "2.1.3",
+    "koa-favicon": "~1.2.0",
+    "koa-generic-session": "~1.10.0",
+    "koa-redis": "~1.0.1",
+    "koa-router": "~3.7.0",
+    "koa-static": "~1.4.7",
+    "mongoose": "=4.1.5",
+    "nodemailer": "~1.4.0",
+    "npm-update": "1.0.2",
+    "react": "~0.14.0",
+    "react-dom": "~0.14.2",
+    "redis": "~2.3.1",
+    "reliable-github": "^0.1.2",
+    "reliable-gitlab": "^0.1.1",
+    "reliable-logger": "^1.0.7",
+    "validator": "~3.37.0",
+    "xutil": "~1.0.0",
+    "yamljs": "~0.2.4",
+    "zmq": "2.13.0"
+  },
+  "devDependencies": {
+    "eslint": "~1.1.0",
+    "eslint-plugin-react": "~3.2.3",
+    "json-loader": "~0.5.2",
+    "jsx-loader": "~0.13.2",
+    "killing": "~1.0.1",
+    "pre-commit": "~1.1.1",
+    "react-d3-components": "~0.6.0",
+    "webpack": "~1.9.0"
+  },
+  "scripts": {
+    "test": "make test",
+    "lint": "make lint"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "engines": {
+    "node": ">=4.2.1"
+  },
+  "homepage": "https://reliablejs.github.io/reliable",
+  "license": "MIT"
+}

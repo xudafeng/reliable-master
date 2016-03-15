@@ -1,0 +1,13 @@
+.main {
+  padding-top: 20px;
+}
+.build-widget {
+  padding: 10px;
+  background: #f4f4f4;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+.trace {
+  background: #000;
+  color: #fff;
+}

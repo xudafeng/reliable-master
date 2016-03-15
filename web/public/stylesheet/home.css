@@ -1,0 +1,153 @@
+.wrapper {
+  z-index: 0;
+  background: #000;
+  position: relative;
+  min-height: 310px;
+}
+.wrapper canvas {
+  display: inline-block;
+  vertical-align: baseline;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+.landing {
+  color: #FBFBF9;
+  text-align: center;
+  overflow: hidden;
+  padding-top: 100px;
+  pointer-events: none;
+}
+.get-start {
+  padding-top: 2rem;
+  pointer-events: all;
+}
+.get-start a {
+  font-size: 1.8rem;
+  line-height: 1rem;
+  margin: 0 1rem;
+  width: 17.5rem;
+  display: -moz-inline-box;
+  -webkit-font-smoothing: antialiased;
+  border-radius: 3px;
+  color: white;
+  display: inline-block;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  background-color: #be465c;
+  border: 1px solid #a73a4e;
+  border-bottom: 2px solid #903244;
+  border-top: 1px solid #ae3d52;
+}
+.btn-hide {
+  visibility: hidden;
+}
+h1 {
+  font-size: 46px;
+  line-height: 66.24px;
+  font-size: 4.5rem;
+  line-height: 7rem;
+  color: #FBFBF9;
+  font-weight: 600;
+  margin: 0 auto;
+}
+h1 span {
+  font-weight: 100;
+  display: block;
+}
+.notes {
+  background: rgba(24, 75, 90, 0.2);
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  display: none;
+}
+.notes p {
+  font-size: 16px;
+  line-height: 23.04px;
+  font-size: 1.6rem;
+  line-height: 2.304rem;
+  color: #c6dedc;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 0;
+  padding-top: 0.4rem;
+  display: inline-block;
+  margin-right: 2.5rem;
+}
+.notes p .headline-latest-release {
+  font-weight: bold;
+}
+.notes p a {
+  color: #c6dedc;
+}
+.site-container {
+  max-width: 108.8rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+  position: relative;
+}
+.notes .social-wrapper {
+  margin: 0 auto;
+  max-width: 75rem;
+  text-align: center;
+}
+
+.linear-chart, .pie-chart {
+  float: left;
+  text-align: center;
+  width: 60%;
+}
+
+.linear-chart .rd3-legend-chart {
+  margin: 0 auto;
+}
+
+.pie-chart {
+  width: 40%;
+}
+
+.charts {
+  padding: 5px 10px;
+  min-height: 150px;
+}
+
+.charts h4 {
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
+.tooltip {
+  padding: 2px;
+  opacity: 1;
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, .1);
+}
+
+.arc path:hover {
+  fill: #E55;
+}
+
+.charts-wrapper {
+  background: #f1f5f5;
+  padding: 50px 0;
+}
+
+.feature-wrapper {
+  background: #fff;
+  padding: 50px 0;
+}
+.feature-wrapper .container {
+  margin: 0 auto;
+}
+
+.feature-wrapper h3 {
+  text-align: center;
+}
+
+.feature-wrapper dd {
+  padding: 5px 0;
+  text-align: center;
+}

@@ -1,0 +1,149 @@
+#topbar {
+  background: url('../images/status-panel_bg_tile.png');
+  -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 1px #c3c3c3;
+  -moz-box-shadow: 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 1px #c3c3c3;
+  box-shadow: 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 1px #c3c3c3;
+  border-bottom: thin solid #d0d0d0;
+}
+
+#topbar .container {
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 940px;
+}
+
+#topbar .cluster-status {
+  padding: 2px 0 10px 0;
+}
+
+.span3 {
+  width: 220px;
+}
+
+[class*="span"] {
+  float: left;
+  margin-left: 20px;
+}
+
+#topbar .client-connection-status .panel {
+  background: url('../images/status_panel-icon_1.png') no-repeat left center;
+}
+
+#topbar .issues .panel {
+  background: url('../images/status_panel-icon_2.png') no-repeat left center;
+}
+
+#topbar .servers-connected .panel {
+  background: url('../images/status_panel-icon_3.png') no-repeat left center;
+}
+
+#topbar .plugins-available .panel {
+  background: url('../images/status_panel-icon_4.png') no-repeat left center;
+}
+
+#topbar .panel {
+  padding-left: 60px;
+  height: 47px;
+}
+
+#topbar .panel h5 {
+  font-family: "Open Sans";
+  font-size: 14px;
+  line-height: 15px;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 4px;
+  color: #909090;
+}
+
+#topbar .panel h4 {
+  font-family: "Copse";
+  font-size: 18px;
+  line-height: 24px;
+  margin: 0;
+  padding: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #4d535c;
+}
+
+.user-info {
+  line-height: 30px;
+  padding: 20px 25px;
+}
+.user-info dl,
+.user-info dd,
+.user-info dt{
+  padding: 10px 0;
+  color: #333;
+}
+
+.selectorDiv {
+  display: inline-block;
+  padding: 0 0;
+  width: 50%;
+}
+
+.selectorDiv span {
+  padding-left: 10px;
+}
+
+.selector {
+  display: inline-block;
+  width: 70%;
+}
+textarea {
+  resize: vertical;
+}
+
+.linear-chart, .pie-chart {
+  float: left;
+  text-align: center;
+  width: 60%;
+}
+
+.linear-chart .rd3-legend-chart {
+  margin: 0 auto;
+}
+
+.pie-chart {
+  width: 40%;
+}
+
+.charts {
+  border: 1px solid #cfcfcf;
+  background-clip: padding-box;
+  background-color: #fbfbfb;
+  box-shadow: 0 2px 1px rgba(0,0,0,.04), inset 0 -1px 2px rgba(0,0,0,.05);
+  padding: 5px 10px;
+  min-height: 150px;
+}
+
+.charts h4 {
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
+.tooltip {
+  padding: 2px;
+  opacity: 1;
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, .1);
+}
+
+.arc path:hover {
+  fill: #E55;
+}
+
+.admin {
+  min-height: 100px;
+  padding: 10px 20px;
+}
+
+#email-form {
+  margin-top: 30px;
+}

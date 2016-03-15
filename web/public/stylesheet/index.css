@@ -1,0 +1,138 @@
+html, body {
+  height: 100%;
+  background: #E5E5E5;
+  background-image: url('../images/body_bg_tile.png');
+}
+
+body {
+  opacity: 0;
+  -webkit-transition: opacity .1s ease;
+}
+.fadeIn {
+  opacity: 100!important;
+}
+.fn-clear:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0
+}
+header {
+  position: absolute;
+  height: 50px;
+  width: 100%;
+}
+header .user {
+  text-align: right;
+  padding: 15px 0;
+  background-color: #272729;
+}
+header .user a,
+header .user span {
+  margin-right: 15px;
+  color: #ababab;
+  text-decoration: none;
+}
+header .user .hover,
+header .user a:hover {
+  color: #fff;
+}
+header .user label {
+  color: #fff;
+}
+header .user .container {
+  height: 28px;
+  line-height: 28px;
+}
+#macaca-logo {
+  font-size: 20px;
+}
+.panel.list {
+  border: 1px solid #cfcfcf;
+  padding: 10px 25px 20px;
+  border-radius: 4px;
+  background-clip: padding-box;
+  background-color: #fbfbfb;
+  box-shadow: 0 2px 1px rgba(0,0,0,.04), inset 0 -1px 2px rgba(0, 0, 0, .05);
+}
+#content {
+  padding-top: 58px;
+  min-height: 100%;
+}
+#content .table {
+  background-color: white;
+  border: thin solid #dcdcdc;
+  border-radius: 4px;
+  padding: 10px;
+}
+#content .breadcrumb {
+  border: 1px solid #cfcfcf;
+  background-clip: padding-box;
+  background-color: #fbfbfb;
+  box-shadow: 0 2px 1px rgba(0,0,0,.04), inset 0 -1px 2px rgba(0, 0, 0, .05);
+  margin: 10px 0;
+}
+footer {
+  background-color: #e5e5e5;
+  color: #a3a3a3;
+  font-family: 'Copse', serif;
+  font-size: 14px;
+  padding-top: 30px;
+  border-top: thin solid #d0d0d0;
+  position: relative;
+  height: 70px;
+  clear: both;
+}
+
+footer a{
+  color: #a3a3a3;
+}
+.pagination-nav {
+  min-height: 80px;
+}
+.modal-title,
+.modal-body{
+  text-align: left;
+}
+.table {
+  background: #fff;
+}
+.list {
+  border-radius: 0;
+  margin-bottom: 0;
+}
+.panel {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  margin-bottom: 0;
+}
+.panel-body {
+  padding: 15px 0;
+}
+.nav-link {
+  line-height: 30px;
+}
+.content-wrapper {
+  margin-bottom: 100px;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #1E90FF;
+  border-color: #A5C3DE;
+}
+.btn-primary:focus, .btn-primary:hover {
+  background-color: #0D7EED;
+  border-color: #A5C3DE;
+}
+.btn-primary:visited {
+  background-color: #1E90FF;
+  border-color: #A5C3DE;
+}
+td a {
+  margin-right: 5px;
+}
+.panel {
+  margin-top: 10px;
+}

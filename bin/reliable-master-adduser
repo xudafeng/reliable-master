@@ -1,0 +1,141 @@
+#!/usr/bin/env node
+/* ================================================================
+ * reliable-master by xdf(xudafeng[at]126.com) ygch1993[at]gmail.com
+ *
+ * first created at : Tue Mar 17 2015 00:16:10 GMT+0800 (CST)
+ *
+ * ================================================================
+ * Copyright 2015
+ *
+ * Licensed under the MIT License
+ * You may not use this file except in compliance with the License.
+ *
+ * ================================================================ */
+
+'use strict';
+
+const co = require('co');
+const EOL = require('os').EOL;
+const chalk = require('chalk');
+const program = require('commander');
+const readline = require('readline');
+
+const _ = require('../common/utils/helper');
+const User = require('../common/models').User;
+
+const TIPS = {
+  welcome: chalk.white(`${EOL} Do you want create an account? [Y/N]`),
+  userId: chalk.white(`${EOL}  User Id: `),
+  existed: chalk.red(`${EOL}  User Id already existed! `),
+  email: chalk.white(`${EOL}  Email address: `),
+  password: chalk.white(`  Password: `),
+  isAdmin: chalk.white(`${EOL}  isAdmin [Y/N]: `),
+  exit: chalk.white(`${EOL}  Are you sure you want to exit?`),
+  bye: chalk.white(`${EOL}  Goodbye! Have a great day! ${EOL}`),
+  success: chalk.green(`${EOL}  Add user success! ${EOL}`),
+  failed: chalk.red(`${EOL}  Add user failed! ${EOL}`)
+};
+
+program
+  .option('--verbose ', 'show more debugging information')
+  .parse(process.argv);
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  terminal: true
+});
+
+let userInfo = {};
+
+rl.on('close', () => {
+  console.log(TIPS['bye']);
+  process.exit(0);
+});
+
+rl.question(TIPS['welcome'], co.wrap(function *(answer) {
+  if (answer.match(/^y(es)?$/i)) {
+    yield stepUserId();
+  } else {
+    rl.close();
+  }
+}));
+
+function *stepUserId() {
+  rl.question(TIPS['userId'], co.wrap(function *(answer) {
+    const userId = answer.trim();
+    const existed = yield User.getByUserName(userId);
+    if (existed) {
+      console.log(TIPS['existed']);
+      yield stepUserId();
+    }
+    userInfo.user_name = userId;
+    yield stepEmail();
+  }));
+}
+
+function *stepEmail() {
+  rl.question(TIPS['email'], co.wrap(function *(answer) {
+    const email = answer.trim();
+    if (_.validator.isEmail(email)) {
+      userInfo.email = email;
+      yield stepPassword();
+    } else {
+      yield stepEmail();
+    }
+  }));
+}
+
+let passwordStr = '';
+
+function passwordListener(char) {
+  if (!~['\n', '\r', '\u0004'].indexOf(char)) {
+    passwordStr += char;
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+    process.stdout.write(TIPS['password']);
+    process.stdout.write(new Array(passwordStr.length + 1).join('*'));
+  } else {
+    process.stdin.removeListener('data', passwordListener);
+    passwordStr = '';
+  }
+}
+
+function *setSafeString() {
+  process.stdout.write(EOL);
+  process.stdin.resume();
+  process.stdin.setEncoding('utf8');
+  process.stdin.on('data', passwordListener);
+}
+
+function *stepPassword() {
+  yield setSafeString();
+  rl.question(TIPS['password'], co.wrap(function *(password) {
+    if (password) {
+      userInfo.password = password;
+      yield isAdmin();
+    } else {
+      yield stepPassword();
+    }
+  }));
+}
+
+function *isAdmin() {
+  rl.question(TIPS['isAdmin'], co.wrap(function *(answer) {
+    let user_level = 0;
+    if (answer.match(/^y(es)?$/i)) {
+      user_level = 3;
+    }
+    userInfo.user_level = user_level;
+    const user = new User(userInfo);
+    try {
+      yield user.add();
+      rl.write(TIPS['success']);
+      rl.close();
+      process.exit();
+    } catch (e) {
+      rl.write(TIPS['failed']);
+      yield stepUserId();
+    }
+  }));
+}
