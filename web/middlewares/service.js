@@ -18,11 +18,31 @@ const YAML = require('yamljs');
 const _ = require('../../common/utils/helper');
 const logger = require('../../common/utils/logger');
 
+function parseInfo(post) {
+  try {
+    const gitUrl = post.repository.url;
+    const type = post.object_kind;
+    let branch;
+    if (type === 'push') {
+      branch = post.ref.split('/').pop();
+    } else if (type === 'merge_request') {
+      branch = post.object_attributes.target_branch;
+    } else {
+      logger.debug(`Not supported gitlab service: ${type}`);
+    }
+    return [branch, gitUrl];
+  } catch (err) {
+    logger.debug(`Error happened when parsing gitlab JSON data: ${err}`);
+    throw new Error('No data is available in JSON!');
+  }
+}
+
 function *gitlabCi(next) {
   let ymlObject = null;
   const post = yield _.parse(this);
-  const branch = post.ref.split('/').pop();
-  const gitUrl = post.repository.url;
+  const data = parseInfo(post);
+  const branch = data[0];
+  const gitUrl = data[1];
   const archiveCmd = `git archive --remote=${gitUrl} ${branch} .macaca.yml | tar -xO`;
 
   try {
