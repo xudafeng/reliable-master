@@ -39,11 +39,11 @@ function parseInfo(post) {
 }
 
 function fetchProjectsFromREADME(str) {
-  var r = /badgeboard\/([0-9a-fA-F]{24})/g;
-  var res = [];
-  var arr;
+  const r = /badgeboard\/([0-9a-fA-F]{24})/g;
+  const res = [];
+  let arr;
   while (arr = r.exec(str)) {
-    var s = arr[1];
+    let s = arr[1];
     if (!~res.indexOf(s)) {
       res.push(s);
     }
