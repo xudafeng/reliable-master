@@ -19,6 +19,7 @@ const _ = require('../../common/utils/helper');
 const logger = require('../../common/utils/logger');
 
 function parseInfo(post) {
+  logger.debug(`Get post data from GitLab: ${JSON.stringify(post, null, '\t')}`);
   try {
     const gitUrl = post.repository.url;
     const type = post.object_kind;
@@ -32,38 +33,46 @@ function parseInfo(post) {
     }
     return [branch, gitUrl];
   } catch (err) {
-    logger.debug(`Error happened when parsing gitlab JSON data: ${err}`);
+    logger.debug(`Error happened when parsing GitLab post data: ${err}`);
     throw new Error('No data is available in JSON!');
   }
 }
 
+function fetchProjectsFromREADME(str) {
+  const r = /badgeboard\/([0-9a-fA-F]{24})/g;
+  const res = [];
+  let arr;
+  while (arr = r.exec(str)) {
+    let s = arr[1];
+    if (!~res.indexOf(s)) {
+      res.push(s);
+    }
+  }
+  return res;
+}
+
 function *gitlabCi(next) {
-  let ymlObject = null;
   const post = yield _.parse(this);
   const data = parseInfo(post);
   const branch = data[0];
   const gitUrl = data[1];
-  const archiveCmd = `git archive --remote=${gitUrl} ${branch} .macaca.yml | tar -xO`;
+  const archiveCmd = `git archive --remote=${gitUrl} ${branch} README.md | tar -xO`;
+  let stdout = '';
+  let projects = [];
 
   try {
     const result = yield _.exec(archiveCmd, {timeout: 5000});
-    const stdout = result[0];
-    ymlObject = YAML.parse(stdout);
+    stdout = result[0];
   } catch(e) {
-    logger.debug(`Unable to parse macaca yml file, error:${e}`);
-    this.throw(400, 'Unable to parse macaca yml file');
+    logger.debug(`Unable to find README.md in this repo, error:${e}`);
+    this.throw(400, 'Unable to find README.md in this repo.');
   }
 
-  if (!ymlObject) {
-    logger.debug(`Repository ${gitUrl} does not hava a .macaca.yml file.`);
-    this.throw(400, `Repository ${gitUrl} does not hava a .macaca.yml file.`);
-  }
+  projects = fetchProjectsFromREADME(stdout);
 
-  const projects = ymlObject.projects;
-
-  if (!projects || !Array.isArray(projects) || !projects.length) {
-    logger.debug(`There is no project configured in ${gitUrl}'s .macaca.yml.`);
-    this.throw(400, `There is no project configured in ${gitUrl}'s .macaca.yml.`);
+  if (!Array.isArray(projects) || !projects.length) {
+    logger.debug(`There is no project configured in ${gitUrl}'s README.md.`);
+    this.throw(400, `There is no project configured in ${gitUrl}'s README.md.`);
   }
 
   this.projects = projects;
