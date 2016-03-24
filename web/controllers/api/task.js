@@ -179,7 +179,7 @@ function *createTask() {
 
   projectsData.forEach((val, index) => {
     if (!val) {
-      notExistProjectIds.push(checkProjectIds[index]);
+      notExistProjectIds.push(projects[index]);
     }
   });
 

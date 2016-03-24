@@ -44,7 +44,7 @@ RUN make build
 # RUN mkdir -p /root/.ssh
 # COPY ./ssh/id_rsa /root/.ssh/id_rsa
 # RUN chmod 700 /root/.ssh/id_rsa
-# RUN echo -e "Host example.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
+# RUN echo "Host example.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
 
 # SSH Key Config End
 
