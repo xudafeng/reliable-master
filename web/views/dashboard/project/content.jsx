@@ -68,7 +68,7 @@ class Content extends React.Component {
             {this.props.session.user.is_admin ? <a className="btn btn-default btn-danger btn-xs delete-task" data-id={item._id} href="javascript:void(0)"> {this.props.gettext('page.global.delete')} </a> : null}
           </td>
           <td className="text-right">
-            <a href={`/badgeboard/${item._id}?editor=true`} target="_blank">
+            <a href={`/badgeboard/${item._id}?title=${item.title}&editor=true`} target="_blank">
               <img src={`/badgeboard/${item._id}`} />
             </a>
           </td>

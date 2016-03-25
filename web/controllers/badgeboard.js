@@ -100,17 +100,47 @@ function *badgeboard() {
   const projectId = this.params.projectId;
 
   if (projectId) {
-    const body = Badgeboard(_.merge(Badgeboard.DEFAULT_DATA, yield dataAdapter(projectId)));
+
+    var data = _.merge(Badgeboard.DEFAULT_DATA, yield dataAdapter(projectId));
+    var _data = _.clone(data);
+
+    var title = this.query.title;
+
+    if (title) {
+      _data.left_text = title;
+    }
+
+    const body = Badgeboard(_data);
     this.body = body;
 
     if (this.query.editor) {
+      this.body = Badgeboard(data);
       this.body += '<p>html:</p><textarea style="width:100%;height:60px">';
-      this.body += `<a href="${config.site.baseurl}/history/${projectId}`;
+      this.body += `<a href="${config.site.baseurl}/history/${projectId}"`;
       this.body += ` target="_blank"><img src="${config.site.baseurl}/badgeboard/${projectId}"/></a></textarea>`;
       this.body += '<p>markdown:</p><textarea style="width:100%;height:60px">';
       this.body += '[![reliable ci][reliable-image]][reliable-url]\n[reliable-image]: ';
       this.body += `${config.site.baseurl}/badgeboard/${projectId}\n[reliable-url]: `;
       this.body += `${config.site.baseurl}/history/${projectId}</textarea>`;
+
+
+      if (!title) {
+        return;
+      }
+
+      this.body += '<br /><br /><p>custom style:</p>';
+      const body = Badgeboard(_data);
+
+      this.body += body;
+
+      this.body += '<p>html:</p><textarea style="width:100%;height:60px">';
+      this.body += `<a href="${config.site.baseurl}/history/${projectId}"`;
+      this.body += ` target="_blank"><img src="${config.site.baseurl}/badgeboard/${projectId}?title=${title}"/></a></textarea>`;
+      this.body += '<p>markdown:</p><textarea style="width:100%;height:60px">';
+      this.body += '[![reliable ci][reliable-image]][reliable-url]\n[reliable-image]: ';
+      this.body += `${config.site.baseurl}/badgeboard/${projectId}?title=${title}\n[reliable-url]: `;
+      this.body += `${config.site.baseurl}/history/${projectId}</textarea>`;
+
     } else {
       this.type = 'image/svg+xml;charset=utf-8';
     }
