@@ -123,7 +123,6 @@ function *badgeboard() {
       this.body += `${config.site.baseurl}/badgeboard/${projectId}\n[reliable-url]: `;
       this.body += `${config.site.baseurl}/history/${projectId}</textarea>`;
 
-
       if (!title) {
         return;
       }
