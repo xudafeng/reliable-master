@@ -38,41 +38,33 @@ function parseInfo(post) {
   }
 }
 
-function fetchProjectsFromREADME(str) {
-  const r = /badgeboard\/([0-9a-fA-F]{24})/g;
-  const res = [];
-  let arr;
-  while (arr = r.exec(str)) {
-    let s = arr[1];
-    if (!~res.indexOf(s)) {
-      res.push(s);
-    }
-  }
-  return res;
-}
-
 function *gitlabCi(next) {
+  let ymlObject = null;
   const post = yield _.parse(this);
   const data = parseInfo(post);
   const branch = data[0];
   const gitUrl = data[1];
-  const archiveCmd = `git archive --remote=${gitUrl} ${branch} README.md | tar -xO`;
-  let stdout = '';
-  let projects = [];
+  const archiveCmd = `git archive --remote=${gitUrl} ${branch} .macaca.yml | tar -xO`;
 
   try {
     const result = yield _.exec(archiveCmd, {timeout: 5000});
-    stdout = result[0];
+    const stdout = result[0];
+    ymlObject = YAML.parse(stdout);
   } catch(e) {
-    logger.debug(`Unable to find README.md in this repo, error:${e}`);
-    this.throw(400, 'Unable to find README.md in this repo.');
+    logger.debug(`Unable to parse macaca yml file, error:${e}`);
+    this.throw(400, 'Unable to parse macaca yml file');
   }
 
-  projects = fetchProjectsFromREADME(stdout);
+  if (!ymlObject) {
+    logger.debug(`Repository ${gitUrl} does not hava a .macaca.yml file.`);
+    this.throw(400, `Repository ${gitUrl} does not hava a .macaca.yml file.`);
+  }
 
-  if (!Array.isArray(projects) || !projects.length) {
-    logger.debug(`There is no project configured in ${gitUrl}'s README.md.`);
-    this.throw(400, `There is no project configured in ${gitUrl}'s README.md.`);
+  const projects = ymlObject.projects;
+
+  if (!projects || !Array.isArray(projects) || !projects.length) {
+    logger.debug(`There is no project configured in ${gitUrl}'s .macaca.yml.`);
+    this.throw(400, `There is no project configured in ${gitUrl}'s .macaca.yml.`);
   }
 
   this.projects = projects;
