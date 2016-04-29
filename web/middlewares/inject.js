@@ -1,5 +1,3 @@
-
-
 'use strict';
 
 const render = require('../views/render');

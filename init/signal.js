@@ -1,5 +1,3 @@
-
-
 'use strict';
 
 const killing = require('killing');
