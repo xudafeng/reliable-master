@@ -1,5 +1,3 @@
-
-
 'use strict';
 
 const auth = require('./middlewares/auth');

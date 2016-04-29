@@ -1,5 +1,3 @@
-
-
 'use strict';
 
 var EOL = require('os').EOL;

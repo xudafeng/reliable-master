@@ -1,5 +1,3 @@
-
-
 'use strict';
 
 const RANGE = 2;

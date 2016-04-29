@@ -1,5 +1,3 @@
-
-
 'use strict';
 
 const models = require('../../../common/models');

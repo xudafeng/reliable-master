@@ -1,5 +1,3 @@
-
-
 'use strict';
 
 const i18n = require('../resources/i18n');
