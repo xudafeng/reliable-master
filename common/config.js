@@ -7,8 +7,7 @@ const path = require('path');
 const _ = require('./utils/helper');
 
 const mongo = process.env.MONGO_PORT_27017_TCP_ADDR || 'localhost';
-
-var defaultCfg = {
+const defaultCfg = {
   server: {
     worker: os.cpus().length,
     port: 8080,
@@ -63,7 +62,7 @@ exports.get = function() {
   list.forEach(item => {
     if (path.extname(item) === '.js' && !!~item.indexOf('.reliable.config.js')) {
       var mod = path.join(rootPath, item);
-      config = _.merge(defaultCfg, require(mod));
+      config = _.merge({}, defaultCfg, require(mod));
     }
   });
 
