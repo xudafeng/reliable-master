@@ -1,16 +1,3 @@
-/* ================================================================
- * reliable-master by xdf(xudafeng[at]126.com)
- *
- * first created at : Tue Mar 17 2015 00:16:10 GMT+0800 (CST)
- *
- * ================================================================
- * Copyright xdf
- *
- * Licensed under the MIT License
- * You may not use this file except in compliance with the License.
- *
- * ================================================================ */
-
 'use strict';
 
 const React = require('react');
@@ -58,7 +45,7 @@ class Content extends React.Component {
       return 'alert-warning';
     } else if (status_name === 'running') {
       return 'alert-info'
-    } else if (status_name === 'success') {
+    } else if (status_name === 'passed') {
       return 'alert-success';
     } else if (status_name === 'failed') {
       return 'alert-danger';

@@ -11,13 +11,13 @@
 [travis-image]: https://img.shields.io/travis/reliablejs/reliable-master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/reliablejs/reliable-master
 
-reliable-master is the master part of the [reliable](https://github.com/reliablejs).
+reliable-master is the master part of the [Reliable](https://github.com/reliablejs).
 
 ## Overview
 
-`reliable` is an `Open Source` reliable continuous integration service which provides a visual platform for you to manage lots of continuous integration tasks. In addition, it is distributed, you can use multiple machines to make better use of resources by it.
+`Reliable` is an `Open Source` reliable continuous integration service which provides a visual platform for you to manage lots of continuous integration tasks. In addition, it is distributed, you can use multiple machines to make better use of resources by it.
 
-`reliable` is written in Node.js / JavaScript, use MongoDB as the data store, Redis as cache store, and Docker to run for convenience.
+`Reliable` is written in Node.js / JavaScript, use MongoDB as the data store, Redis as cache store, and Docker to run for convenience.
 
 ## Documents
 
@@ -27,7 +27,3 @@ reliable-master is the master part of the [reliable](https://github.com/reliable
 
 - i18n support
 - social auth support
-
-## License
-
-[MIT](LICENSE)

@@ -10,4 +10,5 @@ coverage/
 plugins/
 docs/
 data/
+logs/
 *.reliable.config.js

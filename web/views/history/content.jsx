@@ -1,16 +1,3 @@
-/* ================================================================
- * reliable-master by xdf(xudafeng[at]126.com)
- *
- * first created at : Tue Mar 17 2015 00:16:10 GMT+0800 (CST)
- *
- * ================================================================
- * Copyright xdf
- *
- * Licensed under the MIT License
- * You may not use this file except in compliance with the License.
- *
- * ================================================================ */
-
 'use strict';
 
 const React = require('react');
@@ -40,8 +27,8 @@ class Content extends React.Component {
         case 'running':
           taskStatus = <span className="label label-info">{this.props.gettext('page.task.status.running')}</span>;
           break;
-        case 'success':
-          taskStatus = <span className="label label-success">{this.props.gettext('page.task.status.success')}</span>;
+        case 'passed':
+          taskStatus = <span className="label label-success">{this.props.gettext('page.task.status.passed')}</span>;
           break;
         case 'failed':
           taskStatus = <span className="label label-danger">{this.props.gettext('page.task.status.failed')}</span>;

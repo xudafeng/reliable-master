@@ -1,16 +1,3 @@
-/* ================================================================
- * reliable-master
- *
- * first created at : Mon Jan 25 2016 21:00:10 GMT+0800 (CST)
- *
- * ================================================================
- * Copyright xdf
- *
- * Licensed under the MIT License
- * You may not use this file except in compliance with the License.
- *
- * ================================================================ */
-
 'use strict';
 
 const YAML = require('yamljs');

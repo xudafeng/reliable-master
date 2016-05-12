@@ -1,16 +1,3 @@
-/* ================================================================
- * reliable-master by xdf(xudafeng[at]126.com)
- *
- * first created at : Tue Mar 17 2015 00:16:10 GMT+0800 (CST)
- *
- * ================================================================
- * Copyright 2013 xdf
- *
- * Licensed under the MIT License
- * You may not use this file except in compliance with the License.
- *
- * ================================================================ */
-
 'use strict';
 
 const fs = require('fs');
@@ -20,8 +7,7 @@ const path = require('path');
 const _ = require('./utils/helper');
 
 const mongo = process.env.MONGO_PORT_27017_TCP_ADDR || 'localhost';
-
-var defaultCfg = {
+const defaultCfg = {
   server: {
     worker: os.cpus().length,
     port: 8080,
@@ -76,7 +62,7 @@ exports.get = function() {
   list.forEach(item => {
     if (path.extname(item) === '.js' && !!~item.indexOf('.reliable.config.js')) {
       var mod = path.join(rootPath, item);
-      config = _.merge(defaultCfg, require(mod));
+      config = _.merge({}, defaultCfg, require(mod));
     }
   });
 
