@@ -21,7 +21,7 @@ reliable-master is the master part of the [reliable](https://github.com/reliable
 
 ## Documents
 
-- [Deploy with docker](./docs/en/deploy.md)
+- [Deploy with docker](//macacajs.github.io/macaca/)
 
 ## Other Features
 
