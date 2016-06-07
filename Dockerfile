@@ -23,7 +23,7 @@ RUN wget http://www.mirrorservice.org/sites/distfiles.macports.org/libsodium/1.0
 
 WORKDIR /usr/local
 
-RUN wget https://github.com/zeromq/zeromq4-1/releases/download/v$ZEROMQ_VERSION/zeromq-$ZEROMQ_VERSION.tar.gz \
+RUN wget http://pkgs.fedoraproject.org/repo/pkgs/zeromq/zeromq-$ZEROMQ_VERSION.tar.gz/a611ecc93fffeb6d058c0e6edf4ad4fb/zeromq-$ZEROMQ_VERSION.tar.gz \
 	&& tar -zxvf zeromq-$ZEROMQ_VERSION.tar.gz \
 	&& cd ./zeromq-$ZEROMQ_VERSION \
 	&& ./configure && make && make install \
