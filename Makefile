@@ -1,5 +1,6 @@
 current_version = $$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
 npm_bin = $$(npm bin)
+docker_machine_ip = $$(docker-machine ip default)
 
 # environment config, dev or prod
 env = dev
@@ -41,9 +42,11 @@ status:
 	RELIABLE_ENV_PORT=${port} RELIABLE_ENV_CONFIG=${env} docker-compose ps
 serve:
 	$(server_cmd)
+	echo ${docker_machine_ip}
 deploy: stop
 	RELIABLE_ENV_PORT=${port} RELIABLE_ENV_CONFIG=${env} docker-compose build
 	RELIABLE_ENV_PORT=${port} RELIABLE_ENV_CONFIG=${env} docker-compose up -d
+	echo ${docker_machine_ip}
 start:
 	RELIABLE_ENV_PORT=${port} RELIABLE_ENV_CONFIG=${env} docker-compose start
 stop:
