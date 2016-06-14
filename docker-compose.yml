@@ -15,21 +15,14 @@ reliable-master:
     - /etc/localtime:/etc/localtime:ro
   command: make serve env=${RELIABLE_ENV_CONFIG}
 
-db:
-  container_name: "reliable_db_${RELIABLE_ENV_CONFIG}"
+mongo:
+  container_name: "reliable_mongo_${RELIABLE_ENV_CONFIG}"
   restart: always
   image: mongo
   volumes:
     - /var/lib/mongo
     - /etc/localtime:/etc/localtime:ro
   command: "true"
-
-mongo:
-  container_name: "reliable_mongo_${RELIABLE_ENV_CONFIG}"
-  restart: always
-  image: mongo
-  volumes_from:
-    - db
 
 redis:
   container_name: "reliable_redis_${RELIABLE_ENV_CONFIG}"
