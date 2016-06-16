@@ -34,6 +34,8 @@ adduser:
 	./bin/reliable-master adduser
 install:
 	@npm install
+build-docker:
+	docker build -t="reliable-master" .
 test: install
 	@node --harmony \
 		${npm_bin}/istanbul cover ${npm_bin}/_mocha \
