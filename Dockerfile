@@ -38,16 +38,3 @@ WORKDIR /reliable-master
 RUN npm install --registry=https://registry.npm.taobao.org
 
 RUN make build
-
-# SSH Key Config Start (Copy your own private key if needed)
-
-# RUN mkdir -p /root/.ssh
-# COPY ./ssh/id_rsa /root/.ssh/id_rsa
-# RUN chmod 700 /root/.ssh/id_rsa
-# RUN echo "Host example.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
-
-# SSH Key Config End
-
-EXPOSE 8080
-
-CMD ["./bin/reliable-master", "server -p 8080"]

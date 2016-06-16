@@ -1,61 +1,27 @@
 current_version = $$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
 npm_bin = $$(npm bin)
-docker_machine_ip = $$(docker-machine ip default)
 
-# environment config, dev or prod
-env = dev
-
-ifeq ($(env),prod)
-port = 8080
-server_cmd = ./bin/reliable-master server -p ${port}
-endif
-
-ifeq ($(env),dev)
 port = 3333
 server_cmd = ./bin/reliable-master server -p ${port} -w 1 --verbose
-endif
 
 help:
 	@echo ""
-	@echo "make serve env=             Serve for the specified environment"
-	@echo "make deploy env=            Build and run with docker"
-	@echo "make logs env=              View running logs in docker"
-	@echo "make status env=            Check docker status"
-	@echo "make stop env=              Stop running containers"
-	@echo "make start env=             Start containers to serve"
-	@echo "make restart env=           Restart relevant containers"
+	@echo "make server                 Serve for the specified environment"
 	@echo "make build                  Build static resource"
 	@echo "make lint                   Run eslint"
 	@echo "make watch                  Watch and build static resource"
 	@echo "make flush                  Clear logs"
-	@echo "make dump env=              Export data from mongo container in specified environment to ~/reliable_dev.tar"
-	@echo "make restore env=           Import data from ~/reliable_dev.tar to mongo container in specified environment"
-	@echo "make adduser env=           Add admin user to reliable"
-	@echo ""
-	@echo "env for specifying environment, can be 'dev' or 'prod', default value is 'dev'."
+	@echo "make dump                   Export data from mongo container in specified environment to ~/reliable_dev.tar"
+	@echo "make restore                Import data from ~/reliable_dev.tar to mongo container in specified environment"
 
 clean:
 	@rm -rf ./node_modules ./temp ./logs nohup.out
-logs:
-	RELIABLE_ENV_PORT=${port} RELIABLE_ENV_CONFIG=${env} docker-compose logs
-status:
-	RELIABLE_ENV_PORT=${port} RELIABLE_ENV_CONFIG=${env} docker-compose ps
-serve:
+server:
 	$(server_cmd)
-	echo ${docker_machine_ip}
-deploy: stop
-	RELIABLE_ENV_PORT=${port} RELIABLE_ENV_CONFIG=${env} docker-compose build
-	RELIABLE_ENV_PORT=${port} RELIABLE_ENV_CONFIG=${env} docker-compose up -d
-	echo ${docker_machine_ip}
-start:
-	RELIABLE_ENV_PORT=${port} RELIABLE_ENV_CONFIG=${env} docker-compose start
-stop:
-	RELIABLE_ENV_PORT=${port} RELIABLE_ENV_CONFIG=${env} docker-compose kill
-restart: stop start
 dump:
-	RELIABLE_ENV_CONFIG=${env} ./scripts/mongo-dump.sh reliable ~/reliable.tar
+	./scripts/mongo-dump.sh reliable ~/reliable.tar
 restore:
-	RELIABLE_ENV_CONFIG=${env} ./scripts/mongo-restore.sh ~/reliable.tar reliable
+	./scripts/mongo-restore.sh ~/reliable.tar reliable
 build:
 	@${npm_bin}/webpack
 lint:
@@ -65,7 +31,7 @@ watch:
 flush:
 	find ./logs -type f -and -name '*.log' | xargs rm
 adduser:
-	docker exec -it reliable_master_${env} /reliable-master/bin/reliable-master adduser
+	./bin/reliable-master adduser
 install:
 	@npm install
 test: install
@@ -83,4 +49,4 @@ travis: install
 		$(REQUIRED) \
 		$(TESTS) \
 		--bail
-.PHONY: test logs
+.PHONY: test
