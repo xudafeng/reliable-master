@@ -22,7 +22,7 @@ dump:
 	./scripts/mongo-dump.sh reliable ~/reliable.tar
 restore:
 	./scripts/mongo-restore.sh ~/reliable.tar reliable
-build:
+build: install
 	@${npm_bin}/webpack
 lint:
 	@${npm_bin}/eslint .
@@ -33,7 +33,7 @@ flush:
 adduser:
 	./bin/reliable-master adduser
 install:
-	@npm install
+	@npm install --registry=https://registry.npm.taobao.org
 build-docker:
 	docker build -t="reliable-master" .
 test: install

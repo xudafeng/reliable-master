@@ -1,13 +1,13 @@
 # Dockerizing Reliable-master
 
-FROM reliable-base-docker
+FROM reliable-docker-base
+
+MAINTAINER xdf<xudafeng@126.com>
 
 WORKDIR /
 
 COPY . /reliable-master
 
 WORKDIR /reliable-master
-
-RUN npm install --registry=https://registry.npm.taobao.org
 
 RUN make build
