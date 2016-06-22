@@ -54,7 +54,7 @@
     "pre-commit": "~1.1.1",
     "react-d3-components": "~0.6.0",
     "should": "*",
-    "webpack": "~1.9.0"
+    "webpack": "^1.13.1"
   },
   "scripts": {
     "test": "make test",
