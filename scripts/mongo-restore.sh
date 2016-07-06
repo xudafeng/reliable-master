@@ -1,18 +1,4 @@
 #!/bin/bash
 # Reference: http://dimafeng.com/2015/05/31/docker-mongo-backup/
 
-TMP_DIR="/tmp/mongorestore/"
-rm -rf $TMP_DIR && mkdir $TMP_DIR
-if [[ $1 =~ \.tar$ ]];
-then
-  #FILENAME=$(echo $1 | sed 's/.*\///')
-  FILENAME=$2"/"
-  echo "Data will be extracted into :"$TMP_DIR
-  tar -C $TMP_DIR -xvf $1
-else
-  FILENAME=$(echo $1 | sed 's/.*\///')
-  cp $1 $TMP_DIR$FILENAME
-fi
-
-docker run -i --rm --link reliable_mongo:mongo -v $TMP_DIR:/tmp mongo bash -c 'mongorestore --drop -v --host reliable_mongo:27017 --db '$2' /tmp/'$FILENAME' && chmod 777 /tmp'
-rm -rf $TMP_DIR
+docker run -i --rm --link reliable_mongo:mongo -v $HOME/mongodump:/var/data mongo bash -c 'mongorestore --drop -v --host reliable_mongo:27017 --db reliable /var/data/reliable/'

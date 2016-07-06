@@ -19,9 +19,9 @@ clean:
 server:
 	$(server_cmd)
 dump:
-	./scripts/mongo-dump.sh reliable ~/reliable.tar
+	./scripts/mongo-dump.sh
 restore:
-	./scripts/mongo-restore.sh ~/reliable.tar reliable
+	./scripts/mongo-restore.sh
 build: install
 	@${npm_bin}/webpack
 lint:
