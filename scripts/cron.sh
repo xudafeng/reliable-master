@@ -15,7 +15,7 @@ ip=`echo ${slaves} | grep -oE -m1 '"ip":"[^"]*"' | head -1 | grep -oE '[0-9.]+'`
 slave_path="~/data_backup"
 
 cd ${home}/${repo}
-make dump env=prod
+make dump
 scp ${home}/reliable.tar ${user}@${ip}:${slave_path}/reliable-`date +"%F-%H-%M-%S"`.tar
 rm -f ${home}/reliable.tar
 

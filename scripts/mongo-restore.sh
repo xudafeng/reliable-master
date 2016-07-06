@@ -14,5 +14,5 @@ else
   cp $1 $TMP_DIR$FILENAME
 fi
 
-docker run -i --rm --link reliable_mongo_${RELIABLE_ENV_CONFIG}:mongo -v $TMP_DIR:/tmp mongo bash -c 'mongorestore --drop -v --host $MONGO_PORT_27017_TCP_ADDR:$MONGO_PORT_27017_TCP_PORT --db '$2' /tmp/'$FILENAME' && chmod 777 /tmp'
+docker run -i --rm --link reliable_mongo:mongo -v $TMP_DIR:/tmp mongo bash -c 'mongorestore --drop -v --host reliable_mongo:27017 --db '$2' /tmp/'$FILENAME' && chmod 777 /tmp'
 rm -rf $TMP_DIR
