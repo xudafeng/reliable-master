@@ -63,7 +63,6 @@ class Charts extends React.Component {
       var log = arr[1];
       var result = JSON.parse(log);
       result.forEach(obj => {
-        //console.log(obj)
         var item = obj.item;
         if (!(item in map)) {
           map[item] = [];
@@ -115,8 +114,6 @@ class Charts extends React.Component {
     var valuesTemp = [];
     var threadCount = result['ThreadCount'];
     for (var i = 0, j = threadCount.length; i < j; i++) {
-      //console.log(typeof threadCount[i])
-      //console.log(typeof +threadCount[i])
       valuesTemp.push({
         x: i * timer,
         y: +threadCount[i]
