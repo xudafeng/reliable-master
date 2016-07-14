@@ -87,7 +87,7 @@ class Charts extends React.Component {
   }
 
   getData() {
-    logs = document.querySelector('#logs').textContent;
+    logs = $('#logs').text();
     result = this.extract(logs);
     if (Object.keys(result).length) {
       this.state.isShown = true;
@@ -118,6 +118,10 @@ class Charts extends React.Component {
         x: i * timer,
         y: +threadCount[i]
       });
+    }
+    return {
+      label: 'ThreadCount',
+      values: valuesTemp
     };
   }
 
@@ -129,6 +133,10 @@ class Charts extends React.Component {
         x: i * timer,
         y: +cpu[i]
       });
+    }
+    return {
+      label: 'cpu',
+      values: valuesTemp
     };
   }
 
