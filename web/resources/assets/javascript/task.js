@@ -63,6 +63,7 @@ class Charts extends React.Component {
       var log = arr[1];
       var result = JSON.parse(log);
       result.forEach(obj => {
+        //console.log(obj)
         var item = obj.item;
         if (!(item in map)) {
           map[item] = [];
@@ -114,6 +115,8 @@ class Charts extends React.Component {
     var valuesTemp = [];
     var threadCount = result['ThreadCount'];
     for (var i = 0, j = threadCount.length; i < j; i++) {
+      //console.log(typeof threadCount[i])
+      //console.log(typeof +threadCount[i])
       valuesTemp.push({
         x: i * timer,
         y: +threadCount[i]
@@ -131,7 +134,7 @@ class Charts extends React.Component {
     for (var i = 0, j = cpu.length; i < j; i++) {
       valuesTemp.push({
         x: i * timer,
-        y: +cpu[i]
+        y: parseInt(cpu[i], 10)
       });
     }
     return {
@@ -180,16 +183,13 @@ class Charts extends React.Component {
         y: (traffic[i].mobile.snd - traffic[0].mobile.snd) / 1024
       });
     }
-    return [
-      {
-        label: 'TrafficMobileRcv',
-        values: valuesTempRcv
-      },
-      {
-        label: 'TrafficMobileSnd',
-        values: valuesTempSnd
-      }
-    ];
+    return [{
+      label: 'TrafficMobileRcv',
+      values: valuesTempRcv
+    }, {
+      label: 'TrafficMobileSnd',
+      values: valuesTempSnd
+    }];
   }
 
   setDataState() {
@@ -360,6 +360,10 @@ ReactDOM.render(<Charts />, document.getElementById('charts'));
   }
 
   // sidebar sticky
-  $('#affix-sidebar').affix({ offset: { top: 106 } });
+  $('#affix-sidebar').affix({
+    offset: {
+      top: 106
+    }
+  });
 
 })();
