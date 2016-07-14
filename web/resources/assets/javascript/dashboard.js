@@ -283,7 +283,7 @@ if (charts) {
       }
       return k + '=' + v;
     }).toArray().filter(function (item) {
-      if(item.indexOf('undefined') === -1) {
+      if (item.indexOf('undefined') === -1) {
         return true;
       } else {
         return false;
