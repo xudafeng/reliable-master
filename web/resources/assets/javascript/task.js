@@ -1,5 +1,256 @@
 'use strict';
 
+var React = require('react');
+var ReactDOM = require('react-dom');
+var ReactD3 = require('react-d3-components');
+
+var logs;
+var result;
+var timer;
+var LineChart = ReactD3.LineChart;
+
+class Charts extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isShown: false,
+      Meminfo: {
+        values: [{
+          x: 0,
+          y: 0
+        }]
+      },
+      ThreadCount: {
+        values: [{
+          x: 0,
+          y: 0
+        }]
+      },
+      cpu: {
+        values: [{
+          x: 0,
+          y: 0
+        }]
+      },
+      wifiData: {
+        values: [{
+          x: 0,
+          y: 0
+        }]
+      },
+      mobileData: {
+        values: [{
+          x: 0,
+          y: 0
+        }]
+      }
+    };
+  }
+
+  componentDidMount() {
+    this.getData();
+    if (this.state.isShown) {
+      this.setDataState();
+    }
+  }
+
+  extract(logs) {
+    var map = {};
+    var pattern = /\<\#\s*chart\s*\|([\s\S]+?)\#\>/g;
+    var arr;
+    while ((arr = pattern.exec(logs)) !== null) {
+      var log = arr[1];
+      var result = JSON.parse(log);
+      result.forEach(obj => {
+        var item = obj.item;
+        if (!(item in map)) {
+          map[item] = [];
+        }
+        map[item].push(obj.data);
+      });
+    }
+    return map;
+  }
+
+  extractTimer(logs) {
+    var timer;
+    var pattern = /\<\#\s*timer\s*\|([\s\S]+?)\#\>/g;
+    var arr = pattern.exec(logs);
+    if (arr) {
+      var log = arr[1].trim();
+      timer = log.split(' ')[0];
+    } else {
+      timer = 5;
+    }
+    return +timer;
+  }
+
+  getData() {
+    logs = document.querySelector('#logs').textContent;
+    result = this.extract(logs);
+    if (Object.keys(result).length) {
+      this.state.isShown = true;
+    }
+    timer = this.extractTimer(logs);
+  }
+
+  getMemData() {
+    var valuesTemp = [];
+    var meminfo = result['Meminfo'];
+    for (var i = 0, j = meminfo.length; i < j; i++) {
+      valuesTemp.push({
+        x: i * timer,
+        y: +meminfo[i]
+      });
+    }
+    return {
+      label: 'Meminfo',
+      values: valuesTemp
+    };
+  }
+
+  getThreadData() {
+    var valuesTemp = [];
+    var threadCount = result['ThreadCount'];
+    for (var i = 0, j = threadCount.length; i < j; i++) {
+      valuesTemp.push({
+        x: i * timer,
+        y: +threadCount[i]
+      });
+    };
+  }
+
+  getCpuData() {
+    var valuesTemp = [];
+    var cpu = result['cpu'];
+    for (var i = 0, j = cpu.length; i < j; i++) {
+      valuesTemp.push({
+        x: i * timer,
+        y: +cpu[i]
+      });
+    };
+  }
+
+  getTrafficWifiData() {
+    var valuesTempRcv = [];
+    var valuesTempSnd = [];
+    var traffic = result['Traffic'];
+    for (var i = 0, j = traffic.length; i < j; i++) {
+      valuesTempRcv.push({
+        x: i * timer,
+        y: (traffic[i].wifi.rcv - traffic[0].wifi.rcv) / 1024
+      });
+      valuesTempSnd.push({
+        x: i * timer,
+        y: (traffic[i].wifi.snd - traffic[0].wifi.snd) / 1024
+      });
+    }
+    return [
+      {
+        label: 'TrafficWifiRcv(KB)',
+        values: valuesTempRcv
+      },
+      {
+        label: 'TrafficWifiSnd(KB)',
+        values: valuesTempSnd
+      }
+    ];
+  }
+
+  getTrafficMobileData() {
+    var valuesTempRcv = [];
+    var valuesTempSnd = [];
+    var traffic = result['Traffic'];
+    for (var i = 0, j = traffic.length; i < j; i++) {
+      valuesTempRcv.push({
+        x: i * timer,
+        y: (traffic[i].mobile.rcv - traffic[0].mobile.rcv) / 1024
+      });
+      valuesTempSnd.push({
+        x: i * timer,
+        y: (traffic[i].mobile.snd - traffic[0].mobile.snd) / 1024
+      });
+    }
+    return [
+      {
+        label: 'TrafficMobileRcv',
+        values: valuesTempRcv
+      },
+      {
+        label: 'TrafficMobileSnd',
+        values: valuesTempSnd
+      }
+    ];
+  }
+
+  setDataState() {
+    var Meminfo = this.getMemData();
+    var ThreadCount = this.getThreadData();
+    var cpu = this.getCpuData();
+    var wifiData = this.getTrafficWifiData();
+    var mobileData = this.getTrafficMobileData();
+
+    this.setState({
+      Meminfo: Meminfo,
+      ThreadCount: ThreadCount,
+      cpu: cpu,
+      wifiData: wifiData,
+      mobileData: mobileData
+    });
+  }
+
+  getLineChartProps(flag) {
+    this.getData();
+    return {
+      width: 720,
+      height: 300,
+      margin: {
+        top: 10, bottom: 50, left: 100, right: 10
+      },
+      xAxis: {
+        label: 'time'
+      },
+      yAxis: {
+        label: flag
+      }
+    };
+  }
+
+  render() {
+    return (
+      <div className={this.state.isShown ? '' : 'hidden'}>
+        <LineChart
+          data={this.state.Meminfo}
+          {...this.getLineChartProps('Meminfo')}
+        />
+
+        <LineChart
+          data={this.state.cpu}
+          {...this.getLineChartProps('CPU')}
+        />
+
+        <LineChart
+          data={this.state.ThreadCount}
+         {...this.getLineChartProps('ThreadCount')}
+        />
+
+        <LineChart
+          data={this.state.mobileData}
+         {...this.getLineChartProps('MobileTraffic')}
+        />
+
+        <LineChart
+          data={this.state.wifiData}
+          {...this.getLineChartProps('WifiTraffic')}
+        />
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<Charts />, document.getElementById('charts'));
+
 (function() {
   $('#retry').on('click', function() {
     var taskId = $(this).data('id');
