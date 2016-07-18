@@ -5,6 +5,20 @@ const YAML = require('yamljs');
 const _ = require('../../common/utils/helper');
 const logger = require('../../common/utils/logger');
 
+/**
+ * {
+ *   object_kind: 'push',
+ *   ref: {
+ *      ref: 'origin/master'
+ *   },
+ *   repository: {
+ *      url: 'https://xxxx.git'
+ *   }
+ * }
+ *
+ *
+ */
+
 function parseInfo(post) {
   logger.debug(`Get post data from GitLab: ${JSON.stringify(post, null, '\t')}`);
   try {
@@ -34,7 +48,9 @@ function *gitlabCi(next) {
   const archiveCmd = `git archive --remote=${gitUrl} ${branch} .macaca.yml | tar -xO`;
 
   try {
-    const result = yield _.exec(archiveCmd, {timeout: 5000});
+    const result = yield _.exec(archiveCmd, {
+      timeout: 5000
+    });
     const stdout = result[0];
     ymlObject = YAML.parse(stdout);
   } catch(e) {
