@@ -101,7 +101,7 @@ class Charts extends React.Component {
     for (var i = 0, j = meminfo.length; i < j; i++) {
       valuesTemp.push({
         x: i * timer,
-        y: +meminfo[i]
+        y: (+meminfo[i]) / 1024
       });
     }
     return {
@@ -231,7 +231,7 @@ class Charts extends React.Component {
       <div className={this.state.isShown ? '' : 'hidden'}>
         <LineChart
           data={this.state.Meminfo}
-          {...this.getLineChartProps('Meminfo(B)')}
+          {...this.getLineChartProps('Meminfo(kb)')}
         />
 
         <LineChart
@@ -241,17 +241,17 @@ class Charts extends React.Component {
 
         <LineChart
           data={this.state.ThreadCount}
-         {...this.getLineChartProps('ThreadCount')}
+          {...this.getLineChartProps('ThreadCount')}
         />
 
         <LineChart
           data={this.state.mobileData}
-         {...this.getLineChartProps('MobileTraffic(KB)')}
+          {...this.getLineChartProps('MobileTraffic(kb)')}
         />
 
         <LineChart
           data={this.state.wifiData}
-          {...this.getLineChartProps('WifiTraffic(KB)')}
+          {...this.getLineChartProps('WifiTraffic(kb)')}
         />
       </div>
     );
