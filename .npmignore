@@ -12,3 +12,5 @@ docs/
 data/
 logs/
 *.reliable.config.js
+*.sw*
+*.un~
