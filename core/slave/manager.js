@@ -70,6 +70,13 @@ class Manager {
       logger.debug('%s is disconnected, original address is %s.', hostname, address);
       delete this.slaves[hostname];
       _.setArchiveConfig('slaves', this.slaves);
+
+      Object.keys(cluster.workers).forEach((id) => {
+        cluster.workers[id].send({
+          message: 'lostSlave',
+          slave: this.getAvailableSlaves()
+        });
+      });
     });
     data.timestamp = Date.now();
     data.sock = sock;
@@ -77,12 +84,7 @@ class Manager {
     _.setArchiveConfig('slaves', this.slaves);
   }
 
-  dispatch(data) {
-    if (!this.isReady()) {
-      logger.debug('no slave to dispatch');
-      return;
-    }
-
+  getAvailableSlaves() {
     const availableSlaves = _.values(this.slaves).filter(function(slave) {
       return slave.status === STATUS.AVAILABLE;
     });
@@ -92,9 +94,18 @@ class Manager {
       return;
     }
 
-    const availableSlave = availableSlaves.reduce((previousSlave, currentSlave) => {
+    return availableSlaves.reduce((previousSlave, currentSlave) => {
       return previousSlave.sysInfo.memory > currentSlave.sysInfo.memory ? previousSlave : currentSlave;
     });
+  }
+
+  dispatch(data) {
+    if (!this.isReady()) {
+      logger.debug('no slave to dispatch');
+      return;
+    }
+
+    const availableSlave = this.getAvailableSlaves();
 
     if (availableSlave) {
       logger.debug('%s----->> dispatch to %s with %s %j', EOL, availableSlave.sysInfo.hostname, EOL, data);

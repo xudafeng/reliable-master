@@ -18,5 +18,6 @@ mongoose.connect(options.database, error => {
 exports.User = require('./user');
 exports.Task = require('./task');
 exports.Oauth = require('./oauth');
+exports.Plugin = require('./plugin');
 exports.Project = require('./project');
 exports.Subscribe = require('./subscribe');

@@ -27,7 +27,3 @@ class Layout extends React.Component {
 }
 
 module.exports = Layout;
-
-
-
-

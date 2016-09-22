@@ -8,7 +8,6 @@ const path = require('path');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
-const i18n = require('../resources/i18n');
 const logger = require('../../common/utils/logger');
 
 var current = path.join(__dirname, '..', 'views');
@@ -26,8 +25,13 @@ logger.debug('render view path: %s', current);
 // }
 
 module.exports = function(options) {
-  return function(template, data) {
-    const file = path.join(current, template, 'index');
+  return function(template, tplPath, data) {
+    if (typeof tplPath === 'object') {
+      data = tplPath;
+      tplPath = null;
+    }
+
+    const file = path.join(tplPath || current, template, 'index');
     data._options = options;
     data.gettext = this.gettext;
 
