@@ -1,11 +1,14 @@
 'use strict';
 
 const co = require('co');
+const Mail = require('reliable-mail');
 
-const mailer = require('../../common/mail');
+const config = require('../../common/config').get();
 const models = require('../../common/models');
 const _ = require('../../common/utils/helper');
 const logger = require('../../common/utils/logger');
+
+const mail = new Mail(config);
 
 const User = models.User;
 const Task = models.Task;
@@ -63,6 +66,20 @@ function *getUserEmailByTaskId(taskId) {
   return mailQueue;
 };
 
+function *createMailData(taskId, Task, Project) {
+  const task = new Task();
+  const project = new Project();
+  const data = yield task.getById(taskId);
+  const _data = yield project.getById(data.projectId);
+  const subject = `${_data.title}-${gettext('email.task.taskInfo')}`;
+
+  data.title = _data.title;
+  data.subject = subject;
+  data.taskId = taskId;
+
+  return data;
+}
+
 module.exports = co.wrap(function *(data) {
   const task = new Task();
   const taskId = data.taskId;
@@ -80,11 +97,10 @@ module.exports = co.wrap(function *(data) {
     try {
       const userEmailList = yield getUserEmailByTaskId(taskId);
 
-      let queue = [];
-      userEmailList.forEach((email) => {
-        queue.push(mailer.sendTaskEndMail(email, taskId));
-      });
-      yield queue;
+      for (email of userEmailList) {
+        const data = yield createMailData(taskId, Task, Project);
+        mail.sendTaskEndMail(email, data);
+      }
     } catch (e) {
       logger.warn(e.stack);
     }

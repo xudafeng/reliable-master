@@ -21,3 +21,4 @@ dump.zip
 web/public/javascript/
 *.tar
 *.reliable.config.js
+dump.rdb

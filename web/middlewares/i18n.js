@@ -14,8 +14,10 @@ module.exports = function(app) {
     }
 
     locale = _.intersection(locale, locales)[0] || app._options.site.locale;
-    app.options['locale'] = locale;
-    this.gettext = i18n(locale);
+    app._options.locale = locale;
+    const i = i18n(locale);
+    app.addPluginText = i.addPluginText;
+    this.gettext = i.gettext;
     this.cookies.set('locale', locale);
 
     yield next;

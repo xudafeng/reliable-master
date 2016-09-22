@@ -1,28 +1,38 @@
 'use strict';
 
-var fs = require('fs');
-var os = require('os');
-var path = require('path');
+const getArchive = (_ => {
+  const archive = new Map();
+  return {
+    get(locale) {
+      if (archive.get(locale)) {
+        return archive.get(locale);
+      }
 
-var getArchive = (function() {
-  var archive = {};
-  return function(locale) {
-    if (archive[locale]) {
-      return archive[locale];
-    }
-    archive[locale] = {};
-    fs.readFileSync(path.join(__dirname, `${locale}.properties`), 'utf8')
-      .split(os.EOL)
-      .forEach(i => {
-        var item = i.split('=');
-
-        if (item.length === 2) {
-          var left = item[0].trim();
-          var right = item[1].trim();
-          archive[locale][left] = right;
-        }
+      const text = require(`./${locale}`);
+      Object.keys(text).forEach(key => {
+        this.add(locale, key, text[key]);
       });
-    return archive[locale];
+
+      return archive.get(locale);
+    },
+
+    add(locale, key, value) {
+      key = key.trim();
+      value = value.trim();
+
+      !archive.has(locale) && archive.set(locale, new Map());
+      archive.get(locale).set(key, value);
+    },
+
+    addPluginText(locale, text) {
+      if (!archive.has(locale)) {
+        this.get(locale);
+      }
+
+      Object.keys(text).forEach(key => {
+        this.add(locale, key, text[key]);
+      });
+    }
   };
 })();
 
@@ -40,10 +50,11 @@ function formatI18n(content, args) {
   return content;
 }
 
-module.exports = function(locale) {
-  return function(name) {
-    var archive = getArchive(locale);
-    var args = Array.prototype.slice.call(arguments, 1);
-    return formatI18n(archive[name], args || []) || name;
-  };
-};
+module.exports = locale => ({
+  gettext: function(name) {
+    const archive = getArchive.get(locale);
+    const args = Array.prototype.slice.call(arguments, 1);
+    return formatI18n(archive.get(name), args || []) || name;
+  },
+  addPluginText: getArchive.addPluginText.bind(getArchive)
+});

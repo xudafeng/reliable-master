@@ -12,3 +12,4 @@ docs/
 data/
 logs/
 *.reliable.config.js
+dump.rdb

@@ -29,8 +29,8 @@ exports.init = function() {
   if (cluster.isMaster) {
     process.slaveManager = process.slaveManager || new Manager();
 
-    Object.keys(cluster.workers).forEach((id) => {
-      cluster.workers[id].on('message', (e) => {
+    Object.keys(cluster.workers).forEach(id => {
+      cluster.workers[id].on('message', e => {
         switch (e.message) {
           case 'bindSlave':
             process.slaveManager.bind(e.data);

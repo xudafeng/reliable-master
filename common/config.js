@@ -46,7 +46,8 @@ const defaultCfg = {
     },
     sloganImage: 'https://avatars0.githubusercontent.com/u/9263042?v=3&s=200'
   },
-  plugins: []
+  plugins: [],
+  pluginTextPrefix: 'reliable-plugin'
 };
 
 var config = null;
