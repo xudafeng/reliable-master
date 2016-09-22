@@ -13,3 +13,5 @@ data/
 logs/
 *.reliable.config.js
 dump.rdb
+*.sw*
+*.un~
