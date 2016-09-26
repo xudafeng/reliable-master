@@ -6,6 +6,9 @@
     "ci",
     "automation"
   ],
+  "bin": {
+    "reliable-master": "./bin/reliable-master"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:reliablejs/reliable-master.git"
@@ -47,6 +50,7 @@
   },
   "devDependencies": {
     "co-mocha": "~1.1.2",
+    "command-line-test": "^1.0.5",
     "eslint": "~1.1.0",
     "eslint-plugin-react": "~3.2.3",
     "istanbul": "*",
