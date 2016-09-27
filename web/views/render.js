@@ -31,7 +31,7 @@ module.exports = function(options) {
       tplPath = null;
     }
 
-    const file = path.join(tplPath || current, template, 'index');
+    const file = path.join(tplPath || current, template);
     data._options = options;
     data.gettext = this.gettext;
 
