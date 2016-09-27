@@ -33,7 +33,6 @@
     "npm-update": "1.0.2",
     "react": "~0.14.0",
     "react-dom": "~0.14.2",
-    "ready-callback": "^1.0.0",
     "redis": "~2.3.1",
     "reliable-github-oauth": "^1.0.0",
     "reliable-gitlab-oauth": "^1.0.0",

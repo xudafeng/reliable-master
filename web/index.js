@@ -7,7 +7,6 @@ require('babel/register')({
 const EOL = require('os').EOL;
 const koa = require('koa');
 const plugin = require('reliable-plugin');
-const ready = require('ready-callback')();
 
 const router = require('./router');
 const _ = require('../common/utils/helper');
@@ -23,25 +22,18 @@ exports.init = (options, callback) => {
 
   const app = koa();
 
-  ready.mixin(app);
-
   app._options = options;
 
   middlewares(app);
-
-  const done = app.readyCallback('plugin');
 
   plugin(app, {
     pluginModel,
     layout,
     auth,
-    registry: options.registry,
-    done
+    registry: options.registry
   });
 
   router(app);
 
-  app.ready(() => {
-    app.listen(options.server.port, callback);
-  });
+  app.listen(options.server.port, callback);
 };
