@@ -100,13 +100,22 @@ class Content extends React.Component {
 
   renderModal() {
     return (
-      <div id="image-modal" className="modal fade" tabindex="-1" role="dialog">
+      <div
+        id="image-modal"
+        className="modal fade"
+        tabIndex="-1"
+        role="dialog">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-body">
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <div className="image">
-              </div>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div className="image"></div>
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@
 const zmq = require('zmq');
 const EOL = require('os').EOL;
 const cluster = require('cluster');
+const events = require('reliable-events');
 
 const _ = require('../../common/utils/helper');
 const logger = require('../../common/utils/logger');
@@ -45,6 +46,11 @@ class Manager {
 
       switch (data.type) {
         case 'ack':
+          events.sendToSingleCluster({
+            message: events.EVENTS.SLAVE_ONLINE,
+            data: this.getAvailableSlaves()
+          });
+
           this.slaves[hostname || _hostname].status = STATUS.AVAILABLE;
           break;
         case 'task':
@@ -71,11 +77,9 @@ class Manager {
       delete this.slaves[hostname];
       _.setArchiveConfig('slaves', this.slaves);
 
-      Object.keys(cluster.workers).forEach((id) => {
-        cluster.workers[id].send({
-          message: 'lostSlave',
-          slave: this.getAvailableSlaves()
-        });
+      events.sendToSingleCluster({
+        message: events.EVENTS.LOST_SLAVE,
+        data: this.getAvailableSlaves()
       });
     });
     data.timestamp = Date.now();

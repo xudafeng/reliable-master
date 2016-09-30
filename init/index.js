@@ -4,6 +4,7 @@ const path = require('path');
 const EOL = require('os').EOL;
 const cluster = require('cluster');
 const program = require('commander');
+const events = require('reliable-events');
 
 const Task = require('../core').Task;
 const Slave = require('../core').Slave;
@@ -29,6 +30,8 @@ function startTaskServer(options) {
 }
 
 exports.initWithBin = function() {
+
+
   const worker = path.join(__dirname, 'worker.js');
   let onlineNumber = 0;
 
@@ -39,8 +42,24 @@ exports.initWithBin = function() {
   });
 
   cluster
-    .on('fork', () => {
+    .on('fork', worker => {
       logger.debug('worker fork success');
+
+      worker.on('message', function(e)  {
+        console.warn('sssssssss', e);
+        switch (e.message) {
+          case 'killMaster':
+            process.exit(-1);
+            break;
+        }
+
+        events.sendToSingleCluster(e, this);
+      })
+
+      worker.send({
+        message: 'startServer',
+        data: options
+      });
     })
     .on('online', () => {
       logger.debug('worker online');
@@ -72,20 +91,6 @@ exports.initWithBin = function() {
   for (let i = 0; i < options.server.worker; i++) {
     cluster.fork();
   }
-
-  Object.keys(cluster.workers).forEach(id => {
-    cluster.workers[id].on('message', e => {
-      switch (e.message) {
-        case 'killMaster':
-          process.exit(-1);
-          break;
-      }
-    });
-    cluster.workers[id].send({
-      message: 'startServer',
-      data: options
-    });
-  });
 };
 
 process.on('uncaughtException', function(err) {
