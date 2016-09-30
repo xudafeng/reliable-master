@@ -29,8 +29,7 @@ exports.init = (options, callback) => {
   plugin(app, {
     pluginModel,
     layout,
-    auth,
-    registry: options.registry
+    auth
   });
 
   router(app);

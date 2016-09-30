@@ -2,6 +2,7 @@
 
 const co = require('co');
 const Mail = require('reliable-mail');
+const events = require('reliable-events');
 
 const config = require('../../common/config').get();
 const models = require('../../common/models');
@@ -71,12 +72,13 @@ function *createMailData(taskId, Task, Project) {
   const project = new Project();
   const data = yield task.getById(taskId);
   const _data = yield project.getById(data.projectId);
-  const subject = `${_data.title}-${gettext('email.task.taskInfo')}`;
+  const subject = `${_data.title}-task info`;
 
   data.title = _data.title;
   data.subject = subject;
   data.taskId = taskId;
 
+  logger.info('task result is %j', data);
   return data;
 }
 
@@ -97,8 +99,21 @@ module.exports = co.wrap(function *(data) {
     try {
       const userEmailList = yield getUserEmailByTaskId(taskId);
 
-      for (email of userEmailList) {
-        const data = yield createMailData(taskId, Task, Project);
+      const data = yield createMailData(taskId, Task, Project);
+
+      if (data.status === 3) {
+        events.sendToMaster({
+          message: events.EVENTS.TASK_FAILED,
+          data
+        });
+      } else {
+        events.sendToMaster({
+          message: events.EVENTS.TASK_END,
+          data
+        });
+      }
+
+      for (let email of userEmailList) {
         mail.sendTaskEndMail(email, data);
       }
     } catch (e) {

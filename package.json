@@ -1,6 +1,6 @@
 {
   "name": "reliable-master",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Distributed reliable continuous integration service.",
   "keywords": [
     "ci",
@@ -37,11 +37,12 @@
     "react": "~0.14.0",
     "react-dom": "~0.14.2",
     "redis": "~2.3.1",
+    "reliable-events": "^0.1.4",
     "reliable-github-oauth": "^1.0.0",
     "reliable-gitlab-oauth": "^1.0.0",
     "reliable-logger": "^1.0.7",
     "reliable-mail": "^0.2.0",
-    "reliable-plugin": "^0.1.0",
+    "reliable-plugin": "^0.1.6",
     "validator": "~3.37.0",
     "xutil": "~1.0.0",
     "yamljs": "~0.2.4",
