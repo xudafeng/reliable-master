@@ -30,8 +30,6 @@ function startTaskServer(options) {
 }
 
 exports.initWithBin = function() {
-
-
   const worker = path.join(__dirname, 'worker.js');
   let onlineNumber = 0;
 
