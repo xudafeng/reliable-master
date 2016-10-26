@@ -37,7 +37,7 @@ const TaskSchema = new Schema({
   //task description
 
   extra: {
-    type: String
+    type: Object
   },
 
   // task status
