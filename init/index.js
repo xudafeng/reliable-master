@@ -43,8 +43,7 @@ exports.initWithBin = function() {
     .on('fork', worker => {
       logger.debug('worker fork success');
 
-      worker.on('message', function(e)  {
-        console.warn('sssssssss', e);
+      worker.on('message', function(e) {
         switch (e.message) {
           case 'killMaster':
             process.exit(-1);
@@ -52,7 +51,7 @@ exports.initWithBin = function() {
         }
 
         events.sendToSingleCluster(e, this);
-      })
+      });
 
       worker.send({
         message: 'startServer',
@@ -82,15 +81,19 @@ exports.initWithBin = function() {
       logger.debug(`worker error happened: ${err}`);
     });
 
-  process.on('uncaughtException', function(err) {
-    logger.debug(`Caught exception: ${err.stack}`);
-  });
-
   for (let i = 0; i < options.server.worker; i++) {
     cluster.fork();
   }
 };
 
-process.on('uncaughtException', function(err) {
-  console.error('Error caught in uncaughtException event:', err);
+process.on('error', err => {
+  logger.error(`Caught exception: ${err.stack}`);
+});
+
+process.on('uncaughtException', err => {
+  logger.error('Error caught in uncaughtException event: ${err.stack}');
+});
+
+process.on('rejectionHandled', err => {
+  logger.error('Error caught in rejectionHandled event: ${err.stack}');
 });
