@@ -56,7 +56,7 @@ module.exports = {
   'page.global.export.data': '导出数据',
   'page.global.subscribe': '订阅',
   'page.global.unsubscribe': '取消订阅',
-  'page.global.slogan': '一站式自动化测试解决方案',
+  'page.global.slogan': '自动化巡检任务平台',
   'page.global.send.email': '发送邮件',
   'page.global.help': '帮助文档',
 
