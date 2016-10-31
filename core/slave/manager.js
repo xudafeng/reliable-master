@@ -46,12 +46,12 @@ class Manager {
 
       switch (data.type) {
         case 'ack':
+          this.slaves[hostname || _hostname].status = STATUS.AVAILABLE;
+
           events.sendToSingleCluster({
             message: events.EVENTS.SLAVE_ONLINE,
             data: this.getAvailableSlaves()
           });
-
-          this.slaves[hostname || _hostname].status = STATUS.AVAILABLE;
           break;
         case 'task':
           const id = parseInt(Math.random() * Object.keys(cluster.workers).length + 1, 10);
@@ -88,9 +88,15 @@ class Manager {
     _.setArchiveConfig('slaves', this.slaves);
   }
 
-  getAvailableSlaves() {
-    const availableSlaves = _.values(this.slaves).filter(function(slave) {
-      return slave.status === STATUS.AVAILABLE;
+  getAvailableSlaves(runiOS) {
+    const availableSlaves = _.values(this.slaves).filter(slave => {
+      const isAvl = slave.status === STATUS.AVAILABLE;
+
+      if (runiOS) {
+        return isAvl && runiOS === slave.supportiOS;
+      }
+
+      return isAvl;
     });
 
     if (!availableSlaves.length) {
@@ -109,7 +115,7 @@ class Manager {
       return;
     }
 
-    const availableSlave = this.getAvailableSlaves();
+    const availableSlave = this.getAvailableSlaves(data.runiOS);
 
     if (availableSlave) {
       logger.debug('%s----->> dispatch to %s with %s %j', EOL, availableSlave.sysInfo.hostname, EOL, data);

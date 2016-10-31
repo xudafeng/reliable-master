@@ -31,29 +31,31 @@ class Dialog extends React.Component {
                   <input name="title" placeholder={this.props.gettext('page.task.inputtasktitle')} type="text" className="form-control"/>
                 </div>
                 <div className="form-group alert">
-                  <label htmlFor="message-text" className="control-label">{this.props.gettext('page.global.description')}</label>
-                  <textarea name="description" placeholder={this.props.gettext('page.task.inputtaskdescription')} className="form-control"></textarea>
-                </div>
-                <div className="form-group alert">
                   <label htmlFor="message-text" className="control-label">{this.props.gettext('page.global.repo')}</label>
                   <input name="repositoryUrl" placeholder={this.props.gettext('page.task.inputprojectrepositoryurl')} className="form-control" />
                 </div>
                 <div className="form-group alert">
                   <label htmlFor="message-text" className="control-label">{this.props.gettext('page.global.branch')}</label>
-                  <input name="repositoryBranch" placeholder={this.props.gettext('page.task.inputprojectrepositorybranch')} className="form-control" value="master" />
+                  <input name="repositoryBranch" placeholder={this.props.gettext('page.task.inputprojectrepositorybranch')} className="form-control" defaultValue="master" />
+                </div>
+                <div className="form-group alert">
+                  <label htmlFor="message-text" className="control-label">{this.props.gettext('page.global.description')}</label>
+                  <textarea name="description" placeholder={this.props.gettext('page.task.inputtaskdescription')} className="form-control"></textarea>
                 </div>
                 <div className="form-group alert">
                   <label htmlFor="message-text" className="control-label">{this.props.gettext('page.global.environment')}</label>
                   <table id="table-environment">
-                    <tr>
-                      <td className="td-environment"><span className="environment-left">{this.props.gettext('page.global.envkey')}</span></td>
-                      <td className="td-environment"><input type="text" className="input-env" placeholder={this.props.gettext('page.task.inputenvname')}/></td>
-                      <td className="td-environment"><span className="environment-right">{this.props.gettext('page.global.envvalue')}</span></td>
-                      <td className="td-environment"><input type="text" className="input-env" placeholder={this.props.gettext('page.task.inputenvvalue')}/></td>
-                    </tr>
+                    <tbody>
+                      <tr>
+                        <td className="td-environment"><span className="environment-left">{this.props.gettext('page.global.envkey')}</span></td>
+                        <td className="td-environment"><input type="text" className="input-env" placeholder={this.props.gettext('page.task.inputenvname')}/></td>
+                        <td className="td-environment"><span className="environment-right">{this.props.gettext('page.global.envvalue')}</span></td>
+                        <td className="td-environment"><input type="text" className="input-env" placeholder={this.props.gettext('page.task.inputenvvalue')}/></td>
+                      </tr>
+                    </tbody>
                   </table>
-                  <input type="hidden" value={this.props.gettext('page.task.inputenvname')} id="inputenvname"/>
-                  <input type="hidden" value={this.props.gettext('page.task.inputenvvalue')} id="inputenvvalue"/>
+                  <input type="hidden" defaultValue={this.props.gettext('page.task.inputenvname')} id="inputenvname"/>
+                  <input type="hidden" defaultValue={this.props.gettext('page.task.inputenvvalue')} id="inputenvvalue"/>
                   <button type="button" className="btn btn-add" id="add-environment">{this.props.gettext('page.global.add')}</button>
                   <input id="envvalue" name="environment"  type="hidden"/>
                 </div>
@@ -80,6 +82,12 @@ class Dialog extends React.Component {
                       <span>{this.props.gettext('page.global.minute')}</span>
                     </div>
                   </div>
+                </div>
+                <div className="form-group alert checkbox">
+                  <label className="control-label">
+                    <input type="checkbox" name="runiOS" defaultValue="yes" />
+                    {this.props.gettext('page.global.includeiOS')}
+                  </label>
                 </div>
               </div>
               <div className="modal-footer">
@@ -115,7 +123,6 @@ class Dialog extends React.Component {
       </div>
     );
   }
-}
-;
+};
 
 module.exports = Dialog;

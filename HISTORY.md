@@ -1,12 +1,22 @@
+# 1.1.0  / 2016-10-31
+  * feat: marking slave whether support iOS task
+  * fix: subscribe email bug
+  * fix: i18n bug
+
+# 1.0.8  / 2016-10-27
+  * feat: support plugin
+  * feat: add process error handler
+  * fix: badgeboard bug
+
 # 1.0.4  / 2016-08-29
-  * Fix i18n Bug
+  * fix: i18n bug
 
 # 1.0.3  / 2016-08-18
-  * Better i18n
+  * refactor: better i18n
 
 # 1.0.1  / 2016-03-24
 
-  * Tweak Badgeboard to Support Title
+  * refactor: tweak badgeboard to support title
 
 # 1.0.0  / 2016-03-16
 

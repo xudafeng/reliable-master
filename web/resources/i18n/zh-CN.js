@@ -59,6 +59,7 @@ module.exports = {
   'page.global.slogan': '自动化巡检任务平台',
   'page.global.send.email': '发送邮件',
   'page.global.help': '帮助文档',
+  'page.global.includeiOS': '包含 iOS 任务',
 
   'page.common.nav.tasklist': '所有任务',
   'page.common.nav.testcase': '测试用例',

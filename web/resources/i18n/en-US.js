@@ -59,6 +59,7 @@ module.exports = {
   'page.global.slogan': 'Next Generation Auto Tester',
   'page.global.send.email': 'Send Email',
   'page.global.help': 'Help',
+  'page.global.includeiOS': 'include iOS task',
 
   'page.common.nav.tasklist': 'Tasklist',
   'page.common.nav.testcase': 'Testcase',
