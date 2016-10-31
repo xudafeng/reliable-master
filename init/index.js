@@ -91,9 +91,9 @@ process.on('error', err => {
 });
 
 process.on('uncaughtException', err => {
-  logger.error('Error caught in uncaughtException event: ${err.stack}');
+  logger.error(`Error caught in uncaughtException event: ${err.stack}`);
 });
 
 process.on('rejectionHandled', err => {
-  logger.error('Error caught in rejectionHandled event: ${err.stack}');
+  logger.error(`Error caught in rejectionHandled event: ${err.stack}`);
 });

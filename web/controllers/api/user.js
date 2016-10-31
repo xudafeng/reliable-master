@@ -74,7 +74,8 @@ function *deleteUser() {
 function *subscribe() {
   const post = yield _.parse(this);
   const subscribeId = post.subscribeId;
-  const user = yield User.getByUserName(this.session.user.userid);
+  const userId = this.session.user.userid || this.session.user.user_name;
+  const user = yield User.getByUserName(userId);
   const projectId = post.projectId;
 
   if (subscribeId) {

@@ -290,7 +290,6 @@ if (charts) {
       }
     });
     envvalue = tempArr.join(',');
-    alert(envvalue);
     $('#envvalue').val(envvalue);
 
     var data = {};
@@ -303,23 +302,23 @@ if (charts) {
     $('#project-modal').find('select').each(function(e, node) {
       data[node.name] = node.value;
     });
+    $('#project-modal').find('[name=runiOS]').each(function(e, node) {
+      var val = $(node).prop('checked');
+      data[node.name] = val;
+    });
 
-    if (!data['title']) {
-      return $("input[name='title']").parent().addClass('alert-danger alert-dismissible');
-    } else {
-      $("input[name='title']").parent().removeClass('alert-danger alert-dismissible');
-    }
+    var verified = ['title', 'repositoryUrl', 'repositoryBranch', 'runiOS'].every(v => {
+      if (data[v] == null) {
+        $(`input[name=${v}]`).parent().addClass('alert-danger alert-dismissible');
+        return false;
+      } else {
+        $(`input[name=${v}]`).parent().removeClass('alert-danger alert-dismissible');
+        return true;
+      }
+    });
 
-    if (!data['repositoryUrl']) {
-      return $("input[name='repositoryUrl']").parent().addClass('alert-danger alert-dismissible');
-    } else {
-      $("input[name='repositoryUrl']").parent().removeClass('alert-danger alert-dismissible');
-    }
-
-    if (!data['repositoryBranch']) {
-      return $("input[name='repositoryBranch']").parent().addClass('alert-danger alert-dismissible');
-    } else {
-      $("input[name='repositoryBranch']").parent().removeClass('alert-danger alert-dismissible');
+    if (!verified) {
+      return;
     }
 
     data['projectId'] = currentId;

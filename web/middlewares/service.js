@@ -54,7 +54,7 @@ function *gitlabCi(next) {
     const stdout = result[0];
     ymlObject = YAML.parse(stdout);
   } catch(e) {
-    logger.debug(`Unable to parse macaca yml file, error:${e}`);
+    logger.debug(`Unable to parse macaca yml file, error:${e.stack}`);
     this.throw(400, 'Unable to parse macaca yml file');
   }
 

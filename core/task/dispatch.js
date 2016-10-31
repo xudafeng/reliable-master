@@ -34,11 +34,12 @@ module.exports = co.wrap(function *() {
   body += `#${projectData.environment}`;
 
   process.send({
-    message: 'dispatch',
+    message: 'dispatchTask',
     data: {
       body: body,
       taskId: taskData._id,
-      type: 'task'
+      type: 'task',
+      runiOS: projectData.runiOS
     }
   });
 });

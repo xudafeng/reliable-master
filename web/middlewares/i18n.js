@@ -13,6 +13,9 @@ module.exports = function(app) {
       locale = [locale];
     }
 
+    // zh_CN -> zh-CN
+    locale = locale.map(l => l.replace(/_/, '-'));
+
     locale = _.intersection(locale, locales)[0] || app._options.site.locale;
     app._options.locale = locale;
     const i = i18n(locale);
