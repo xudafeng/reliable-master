@@ -1,3 +1,6 @@
+# 1.1.1  / 2016-11-02
+  * fix: init redis slave field when bootstrap master
+
 # 1.1.0  / 2016-10-31
   * feat: marking slave whether support iOS task
   * fix: subscribe email bug
@@ -15,9 +18,7 @@
   * refactor: better i18n
 
 # 1.0.1  / 2016-03-24
-
   * refactor: tweak badgeboard to support title
 
 # 1.0.0  / 2016-03-16
-
   * First Release
