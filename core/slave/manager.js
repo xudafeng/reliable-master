@@ -48,7 +48,6 @@ class Manager {
       switch (data.type) {
         case 'ack':
           this.slaves[hostname || _hostname].status = STATUS.AVAILABLE;
-
           events.sendToSingleCluster({
             message: events.EVENTS.SLAVE_ONLINE,
             data: this.getAvailableSlaves()

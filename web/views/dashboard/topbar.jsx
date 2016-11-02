@@ -3,8 +3,15 @@
 const React = require('react');
 
 class Topbar extends React.Component {
-
   render() {
+    const plugins = (plugin) => {
+      const len = Object.keys(plugin).length;
+      if (len > 1) {
+        return `${len} plugins`
+      }
+      return `${len} plugin`
+    }
+
     return (
       <div id="topbar">
         <div className="sidebar-container">
@@ -38,7 +45,7 @@ class Topbar extends React.Component {
                 <div>
                   <div className="panel ">
                     <h5>Plugins</h5>
-                    <h4>{this.props._options.plugins.length} plugins</h4>
+                    <h4>{plugins(this.props._options.plugins)}</h4>
                   </div>
                 </div>
               </div>
