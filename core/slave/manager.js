@@ -22,6 +22,7 @@ class Manager {
 
   init() {
     this.monitor();
+    _.setArchiveConfig('slaves', this.slaves);
   }
 
   bind(data) {
