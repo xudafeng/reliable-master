@@ -15,12 +15,14 @@ class Plugin extends React.Component {
 
   render() {
     return (
-      <div className="panel list">
-        <h4>{this.props.gettext('page.plugin.title')}</h4>
-        <ul className="list-unstyled">
-          {this.pluginContent()}
-        </ul>
-      </div>
+      this.props.pluginList.length ? (
+        <div className="panel list">
+          <h4>{this.props.gettext('page.plugin.title')}</h4>
+          <ul className="list-unstyled">
+            {this.pluginContent()}
+          </ul>
+        </div>
+      ) : null
     );
   };
 }

@@ -1,5 +1,6 @@
 # 1.1.1  / 2016-11-02
   * fix: init redis slave field when bootstrap master
+  * fix: don't display unregistered plugins
 
 # 1.1.0  / 2016-10-31
   * feat: marking slave whether support iOS task

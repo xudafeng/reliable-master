@@ -22,7 +22,7 @@ class Content extends React.Component {
           break;
       }
       return (
-        <tr title={item.description}>
+        <tr key={item._id} title={item.description}>
           <th scope="row">{this.props.user.count - i - 10 * (this.props.page.pagination.current - 1) }</th>
           <td>{item.user_name || '-'}</td>
           <td>{item.nick_name || '-'}</td>

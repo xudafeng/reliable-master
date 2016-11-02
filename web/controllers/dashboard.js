@@ -98,7 +98,11 @@ function *getSettingContext() {
   page.csrf = this.csrf;
   context.user = user;
   context.page = page;
-  context.pluginList = yield Plugin.getAllData();
+
+  // plugin info
+  const allPlugin = yield Plugin.getAllData();
+  context.pluginList = allPlugin.filter(p => config.plugins[p.name]);
+
   return context;
 }
 
