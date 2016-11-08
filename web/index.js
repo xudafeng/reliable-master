@@ -14,7 +14,9 @@ const middlewares = require('./middlewares');
 const auth = require('./middlewares/auth');
 const logger = require('../common/utils/logger');
 const layout = require('./views/common/layout');
-const pluginModel = require('../common/models/').Plugin;
+const model = require('../common/models/');
+const pluginModel = model.Plugin;
+const taskModel = model.Task;
 
 exports.init = (options, callback) => {
 
@@ -28,6 +30,7 @@ exports.init = (options, callback) => {
 
   plugin(app, {
     pluginModel,
+    taskModel,
     layout,
     auth
   });

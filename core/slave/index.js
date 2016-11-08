@@ -46,6 +46,7 @@ exports.init = function() {
             break;
         }
       });
+
       cluster.workers[id].send({
         message: 'slaveReady'
       });

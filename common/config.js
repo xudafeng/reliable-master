@@ -19,7 +19,7 @@ const defaultCfg = {
     baseurl: 'http://reliable-test.com',
     locale: 'en-US',
     docurl: 'https://macacajs.github.io/macaca',
-    issueurl: 'https://github.com/reliablejs/reliable-master',
+    issueurl: 'https://github.com/alibaba/reliable/issues',
     login: true
   },
   auth: {
