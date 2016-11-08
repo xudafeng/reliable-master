@@ -59,6 +59,8 @@
 
 .trace.content-wrapper {
   margin-bottom: 10px;
+  background-color: #222;
+  color: #fff;
 }
 
 .breadcrumb {

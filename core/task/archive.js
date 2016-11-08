@@ -83,23 +83,21 @@ function *createMailData(taskId, Task, Project) {
 }
 
 module.exports = co.wrap(function *(data) {
-  const task = new Task();
-  const taskId = data.taskId;
+  try {
+    const task = new Task();
+    const taskId = data.taskId;
 
-  const taskData = yield task.getById(taskId);
+    const taskData = yield task.getById(taskId);
 
-  if (!taskData) {
-    logger.warn(`taskId: ${taskId} is not found.`);
-    return;
-  }
+    if (!taskData) {
+      logger.warn(`taskId: ${taskId} is not found.`);
+      return;
+    }
 
-  if (data.status === 'available') {
-    yield task.findByIdAndUpdate(taskId, data);
+    if (data.status === 'available') {
+      yield task.findByIdAndUpdate(taskId, data);
 
-    try {
       const userEmailList = yield getUserEmailByTaskId(taskId);
-
-      const data = yield createMailData(taskId, Task, Project);
 
       if (data.status === 3) {
         events.sendToMaster({
@@ -113,13 +111,16 @@ module.exports = co.wrap(function *(data) {
         });
       }
 
+      const mailData = yield createMailData(taskId, Task, Project);
+
       for (let email of userEmailList) {
-        mail.sendTaskEndMail(email, data);
+        mail.sendTaskEndMail(email, mailData);
       }
-    } catch (e) {
-      logger.warn(e.stack);
+
+    } else if (data.status === 'busy') {
+      yield task.findByIdAndPushResult(taskId, data);
     }
-  } else if (data.status === 'busy') {
-    yield task.findByIdAndPushResult(taskId, data);
+  } catch (e) {
+    logger.warn(e.stack);
   }
 });
