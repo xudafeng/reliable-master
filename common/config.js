@@ -18,7 +18,7 @@ const defaultCfg = {
     title: 'Reliable',
     baseurl: 'http://reliable-test.com',
     locale: 'en_US',
-    docurl: 'https://macacajs.github.io/macaca',
+    docurl: 'https://macacajs.github.io',
     issueurl: 'https://github.com/reliablejs/reliable-master',
     login: true
   },
