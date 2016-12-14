@@ -87,13 +87,21 @@ exports.initWithBin = function() {
 };
 
 process.on('error', err => {
-  logger.error(`Caught exception: ${err.stack}`);
+  logger.error('------------ error ------------\n', err.stack);
 });
 
 process.on('uncaughtException', err => {
-  logger.error(`Error caught in uncaughtException event: ${err.stack}`);
+  logger.error('------------ uncaughtException ------------\n', err.stack);
 });
 
 process.on('rejectionHandled', err => {
-  logger.error(`Error caught in rejectionHandled event: ${err.stack}`);
+  logger.error('------------ rejectionHandled ------------\n', err.stack);
+});
+
+process.on('unhandledRejection', err => {
+  logger.error('------------ unhandledRejection ------------\n', err.stack);
+});
+
+process.on('warning', warning => {
+  console.warn('------------ warning ------------\n', warning.stack);
 });

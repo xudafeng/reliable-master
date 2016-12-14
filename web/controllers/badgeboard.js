@@ -13,25 +13,6 @@ const Task = models.Task;
 const Project = models.Project;
 const TASK_STATUS = Task.STATUS;
 
-function getPassingRate(data) {
-  if (data.status === 0 || data.status === 1) {
-    return '0%';
-  }
-
-  try {
-    const extra = JSON.parse(data.extra);
-    let value = parseInt(extra.passing / (extra.passing + extra.failing) * 100, 10);
-
-    if (isNaN(value)) {
-      value = 0;
-    }
-    return `${value}%`;
-  } catch (e) {
-    logger.warn(e.stack);
-  }
-  return '0%';
-}
-
 function *dataAdapter(projectId) {
 
   const colorMap = ['#f0ad4e', '#5bc0de', '#5cb85c', '#d9534f'];
@@ -43,9 +24,9 @@ function *dataAdapter(projectId) {
     const status = data.status;
 
     return {
-      left_text: TASK_STATUS[status],
+      left_text: 'build',
       right_bg_color: colorMap[status],
-      right_text: getPassingRate(data)
+      right_text: TASK_STATUS[status]
     };
   } catch (e) {
     logger.warn(e.stack);
@@ -53,7 +34,7 @@ function *dataAdapter(projectId) {
 
   return {
     left_text: 'none',
-    right_text: '0%'
+    right_text: 'failed'
   };
 }
 
