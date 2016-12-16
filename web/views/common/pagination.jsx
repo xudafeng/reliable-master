@@ -9,7 +9,7 @@ class Pagination extends React.Component {
     var pageEnd = this.props.page.pagination.end;
     var result = [];
     for (let i = pageStart; i < pageEnd; i++) {
-      result.push(<li className={this.props.page.pagination.current === i ? 'active' : null}><a className="page" href="#" data-page={i}>{i}</a></li>);
+      result.push(<li key={i} className={this.props.page.pagination.current === i ? 'active' : null}><a className="page" href="#" data-page={i}>{i}</a></li>);
     }
     return result;
   }

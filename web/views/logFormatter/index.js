@@ -5,6 +5,7 @@ var Convert = require('ansi-to-html');
 
 var screenshot = require('./screenshot');
 var performance = require('./performance');
+var trTpl = require('./tr-tpl');
 
 var perfFragments;
 var convert = new Convert();
@@ -39,8 +40,37 @@ function hasPerformanceData(logs) {
   return perfPattern.test(logs);
 }
 
+function tableWrap(raw) {
+  let i = 0;
+
+  return raw.split('\n').map(v => {
+    if (v.trim()) {
+      if (v.indexOf('reliable_timing_start') > -1) {
+        return trTpl.timingStart();
+      }
+
+      if (v.indexOf('reliable_timing_end') > -1) {
+        return trTpl.timingEnd(v);
+      }
+
+      if (v.indexOf('reliable_fold:start') > -1) {
+        return trTpl.foldStart(v);
+      }
+
+      if (v.indexOf('reliable_fold:end') > -1) {
+        return trTpl.foldEnd(v);
+      }
+
+      i++;
+      return trTpl.defaultTpl(v, i)
+    }
+  });
+}
+
 function beautify(logs) {
-  return convert.toHtml(logs).replace(/\n+/g, '\n\n');
+  const raw = convert.toHtml(logs).replace(/\n+/g, '\n\n')
+  const table = tableWrap(raw);
+  return table.join('');
 }
 
 function format(logs) {

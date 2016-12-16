@@ -16,15 +16,7 @@ const Task = models.Task;
 const Project = models.Project;
 const Subscribe = models.Subscribe;
 
-function isUnexpectedTask(taskData) {
-  try {
-    var result = JSON.parse(taskData.extra);
-    return !result.passing;
-  } catch (e) {
-    logger.debug(`JSON parse task ${taskData.projectId} data error!`);
-    return false;
-  }
-}
+const isUnexpectedTask = taskData => taskData.status === 2;
 
 /**
  *

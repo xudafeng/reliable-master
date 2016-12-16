@@ -151,8 +151,7 @@ class Content extends React.Component {
               </div>
             </div>
             <pre className="trace content-wrapper">
-              <code className="bash" dangerouslySetInnerHTML={{__html: format(this.props.detail.result_string)}}>
-              </code>
+              <ul className="bash" dangerouslySetInnerHTML={{__html: format(this.props.detail.result_string)}}></ul>
             </pre>
             <div id="logs">
               <div className="bash" dangerouslySetInnerHTML={{__html: this.props.detail.result_string}}>
