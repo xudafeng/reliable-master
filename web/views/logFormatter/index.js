@@ -62,13 +62,13 @@ function tableWrap(raw) {
       }
 
       i++;
-      return trTpl.defaultTpl(v, i)
+      return trTpl.defaultTpl(v, i);
     }
   });
 }
 
 function beautify(logs) {
-  const raw = convert.toHtml(logs).replace(/\n+/g, '\n\n')
+  const raw = convert.toHtml(logs).replace(/\n+/g, '\n\n');
   const table = tableWrap(raw);
   return table.join('');
 }

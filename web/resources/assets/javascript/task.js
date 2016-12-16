@@ -367,12 +367,11 @@ ReactDOM.render(<Charts />, document.getElementById('charts'));
     }
   });
 
-
   // fold
   var foldWrap = $('.fold-wrap');
   foldWrap.on('click', function(e) {
     var self = $(this);
     var date = self.find('.fold-wrap-date');
-    self.next('.fold-wrap-content').toggle()
+    self.next('.fold-wrap-content').toggle();
   });
 })();
