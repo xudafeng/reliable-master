@@ -29,10 +29,7 @@ module.exports = co.wrap(function *() {
       return;
     }
 
-    let body = projectData.repositoryUrl;
-
-    body += `#${projectData.repositoryBranch}`;
-    body += `#${projectData.environment}`;
+    let body = `${projectData.repositoryUrl}#${projectData.repositoryBranch}`;
 
     process.send({
       message: 'dispatchTask',

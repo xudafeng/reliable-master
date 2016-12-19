@@ -45,15 +45,6 @@ const ProjectSchema = new Schema({
   },
 
   /**
-   * environment for project
-   * <key, value>
-   */
-
-  environment: {
-    type: String
-  },
-
-  /**
    * whether run ios task
    * true - > yes, iOS / Android / PC
    * false - > no, Android / PC

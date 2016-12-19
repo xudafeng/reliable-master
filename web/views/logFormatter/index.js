@@ -1,14 +1,14 @@
 'use strict';
 
-var EOL = require('os').EOL;
-var Convert = require('ansi-to-html');
+const EOL = require('os').EOL;
+const Convert = require('ansi-to-html');
 
-var screenshot = require('./screenshot');
-var performance = require('./performance');
-var trTpl = require('./tr-tpl');
+const screenshot = require('./screenshot');
+const performance = require('./performance');
+const trTpl = require('./tr-tpl');
 
-var perfFragments;
-var convert = new Convert();
+let perfFragments;
+const convert = new Convert();
 
 function handler(type, log) {
   if (typeof type !== 'string') {
@@ -36,7 +36,7 @@ function handler(type, log) {
 }
 
 function hasPerformanceData(logs) {
-  var perfPattern = /\<\# performance[\s\S]*\#\>/g;
+  const perfPattern = /\<\# performance[\s\S]*\#\>/g;
   return perfPattern.test(logs);
 }
 
@@ -75,14 +75,12 @@ function beautify(logs) {
 
 function format(logs) {
   logs = beautify(logs);
-  var pattern = /\<\#([\s\S]*?)\#\>/g;
+  const pattern = /\<\#([\s\S]*?)\#\>/g;
   perfFragments = hasPerformanceData(logs) ? EOL + '<p>Performance Table:</p>' : '';
   return (logs.replace(pattern, function(matchStr, identifyStr) {
-    var arr = identifyStr.split('|');
-    var type = arr[0];
-    var log = arr[1];
+    const [type, log] = identifyStr.split('|');
     if (type && log) {
-      var res = handler(type, log);
+      const res = handler(type, log);
       if (res) {
         return res.trim();
       }
