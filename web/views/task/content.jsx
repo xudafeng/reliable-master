@@ -3,7 +3,8 @@
 const React = require('react');
 
 const Charts = require('./charts');
-const format = require('../logFormatter');
+const format = require('../logFormatter').format;
+const safe = require('../logFormatter').safe;
 
 class Content extends React.Component {
   constructor(props) {
@@ -154,7 +155,7 @@ class Content extends React.Component {
               <ul className="bash" dangerouslySetInnerHTML={{__html: format(this.props.detail.result_string)}}></ul>
             </pre>
             <div id="logs">
-              <div className="bash" dangerouslySetInnerHTML={{__html: this.props.detail.result_string}}>
+              <div className="bash" dangerouslySetInnerHTML={{__html: safe(this.props.detail.result_string)}}>
               </div>
             </div>
             <Charts />

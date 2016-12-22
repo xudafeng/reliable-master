@@ -68,7 +68,8 @@ function tableWrap(raw) {
 }
 
 function beautify(logs) {
-  const raw = convert.toHtml(logs).replace(/\n+/g, '\n\n');
+  const raw = convert.toHtml(safe(logs)).replace(/\n+/g, '\n\n');
+
   const table = tableWrap(raw);
   return table.join('');
 }
@@ -89,4 +90,10 @@ function format(logs) {
   }) + perfFragments).replace(/\n{2,}/g, '\n\n');
 }
 
-module.exports = format;
+function safe(log) {
+  return log.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+exports.format = format;
+exports.safe = safe;
+

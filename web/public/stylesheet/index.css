@@ -5,7 +5,7 @@ html, body {
 }
 
 body {
-  opacity: 0;
+  opacity: 1;
   -webkit-transition: opacity .1s ease;
 }
 .fadeIn {

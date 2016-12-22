@@ -3,9 +3,9 @@
 const tplResult = v => {
   const result = [];
 
-  v.split('<%').forEach(code => {
-    if (code.indexOf('%>') > -1) {
-      result.push(code.split('%>')[0]);
+  v.split('{%').forEach(code => {
+    if (code.indexOf('%}') > -1) {
+      result.push(code.split('%}')[0]);
     }
   });
 
