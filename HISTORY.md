@@ -1,6 +1,5 @@
 # 2.0.0  / 2016-12-19
 * feat: better task log, support line number & log folding;
-* refactor: remove environment variable support when add task.
 
 # 1.1.2  / 2016-11-08
 * refactor: passing Task model to plugin;
