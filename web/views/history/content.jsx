@@ -8,9 +8,7 @@ class Content extends React.Component {
     let data = null;
     try {
       data = JSON.parse(item.extra);
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
 
     return data ? data : {};
   }

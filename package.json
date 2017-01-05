@@ -1,11 +1,14 @@
 {
   "name": "reliable-master",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Distributed reliable continuous integration service.",
   "keywords": [
     "ci",
     "automation"
   ],
+  "bin": {
+    "reliable-master": "./bin/reliable-master"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:reliablejs/reliable-master.git"
@@ -18,7 +21,7 @@
     "chalk": "~1.1.1",
     "co": "~4.6",
     "co-body": "~1.1.0",
-    "co-request": "~0.2.0",
+    "co-request": "^0.2.1",
     "commander": "~2.0.0",
     "detect-port": "~0.1.3",
     "koa": "~0.21.0",
@@ -34,16 +37,20 @@
     "react": "~0.14.0",
     "react-dom": "~0.14.2",
     "redis": "~2.3.1",
+    "reliable-events": "^0.1.4",
     "reliable-github-oauth": "^1.0.0",
     "reliable-gitlab-oauth": "^1.0.0",
     "reliable-logger": "^1.0.7",
+    "reliable-mail": "^0.2.0",
+    "reliable-plugin": "^0.1.9",
     "validator": "~3.37.0",
     "xutil": "~1.0.0",
     "yamljs": "~0.2.4",
-    "zmq": "2.13.0"
+    "zmq": "2.15.3"
   },
   "devDependencies": {
     "co-mocha": "~1.1.2",
+    "command-line-test": "^1.0.5",
     "eslint": "~1.1.0",
     "eslint-plugin-react": "~3.2.3",
     "istanbul": "*",

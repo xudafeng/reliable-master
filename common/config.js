@@ -17,9 +17,9 @@ const defaultCfg = {
   site: {
     title: 'Reliable',
     baseurl: 'http://reliable-test.com',
-    locale: 'en_US',
-    docurl: 'https://macacajs.github.io',
-    issueurl: 'https://github.com/reliablejs/reliable-master',
+    locale: 'en-US',
+    docurl: 'reliablejs.github.io',
+    issueurl: 'https://github.com/alibaba/reliable/issues',
     login: true
   },
   auth: {
@@ -46,7 +46,8 @@ const defaultCfg = {
     },
     sloganImage: 'https://avatars0.githubusercontent.com/u/9263042?v=3&s=200'
   },
-  plugins: []
+  plugins: {},
+  pluginTextPrefix: 'reliable-plugin'
 };
 
 var config = null;

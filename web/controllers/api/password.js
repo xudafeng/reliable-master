@@ -1,11 +1,13 @@
 'use strict';
 
 const bcrypt = require('bcryptjs');
+const Mail = require('reliable-mail');
 
 const models = require('../../../common/models');
 const _ = require('../../../common/utils/helper');
-const sendResetPasswordMail = require('../../../common/mail').sendResetPasswordMail;
+const config = require('../../../common/config').get();
 
+const mail = new Mail(config);
 const User = models.User;
 
 function *retake() {
@@ -18,7 +20,7 @@ function *retake() {
         resetPasswordToken: token,
         resetPasswordExpires: Date.now() + 3600000
       });
-      sendResetPasswordMail(user.email, token);
+      mail.sendResetPasswordMail(user.email, token);
       this.body = {
         success: true
       };

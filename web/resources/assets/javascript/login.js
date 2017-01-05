@@ -54,7 +54,6 @@
         user_name: $('input[name="user_name"]').prop('value'),
         password: $('input[name="password"]').prop('value')
       },
-      async: false,
       method: 'post',
       success: function (d) {
         if (d.success) {

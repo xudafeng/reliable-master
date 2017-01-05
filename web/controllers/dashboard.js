@@ -2,14 +2,18 @@
 
 const React = require('react');
 const hostname = require('os').hostname();
+const Mail = require('reliable-mail');
 
 const models = require('../../common/models');
 const _ = require('../../common/utils/helper');
 const logger = require('../../common/utils/logger');
 const pagination = require('../../common/utils/pagination');
-const sendNoticeMail = require('../../common/mail').sendNoticeMail;
+const config = require('../../common/config').get();
+
+const mail = new Mail(config);
 
 const User = models.User;
+const Plugin = models.Plugin;
 const Project = models.Project;
 const Subscribe = models.Subscribe;
 
@@ -94,6 +98,11 @@ function *getSettingContext() {
   page.csrf = this.csrf;
   context.user = user;
   context.page = page;
+
+  // plugin info
+  const allPlugin = yield Plugin.getAllData();
+  context.pluginList = allPlugin.filter(p => config.plugins[p.name]);
+
   return context;
 }
 
@@ -121,7 +130,7 @@ function *postSendMail() {
   const content = post.content.replace(/\r?\n/g, '<br />');
   emails.forEach(email => {
     try {
-      sendNoticeMail(email, title, content);
+      mail.sendNoticeMail(email, title, content);
     } catch(e) {
       logger.warn(`Send email error happens, to: ${email}, title: ${title}, content: $(content).`);
     }

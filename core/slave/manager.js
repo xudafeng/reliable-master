@@ -3,6 +3,7 @@
 const zmq = require('zmq');
 const EOL = require('os').EOL;
 const cluster = require('cluster');
+const events = require('reliable-events');
 
 const _ = require('../../common/utils/helper');
 const logger = require('../../common/utils/logger');
@@ -21,6 +22,7 @@ class Manager {
 
   init() {
     this.monitor();
+    _.setArchiveConfig('slaves', this.slaves);
   }
 
   bind(data) {
@@ -46,6 +48,10 @@ class Manager {
       switch (data.type) {
         case 'ack':
           this.slaves[hostname || _hostname].status = STATUS.AVAILABLE;
+          events.sendToSingleCluster({
+            message: events.EVENTS.SLAVE_ONLINE,
+            data: this.getAvailableSlaves()
+          });
           break;
         case 'task':
           const id = parseInt(Math.random() * Object.keys(cluster.workers).length + 1, 10);
@@ -70,11 +76,37 @@ class Manager {
       logger.debug('%s is disconnected, original address is %s.', hostname, address);
       delete this.slaves[hostname];
       _.setArchiveConfig('slaves', this.slaves);
+
+      events.sendToSingleCluster({
+        message: events.EVENTS.LOST_SLAVE,
+        data: this.getAvailableSlaves()
+      });
     });
     data.timestamp = Date.now();
     data.sock = sock;
     this.slaves[hostname] = data;
     _.setArchiveConfig('slaves', this.slaves);
+  }
+
+  getAvailableSlaves(runiOS) {
+    const availableSlaves = _.values(this.slaves).filter(slave => {
+      const isAvl = slave.status === STATUS.AVAILABLE;
+
+      if (runiOS) {
+        return isAvl && runiOS === slave.supportiOS;
+      }
+
+      return isAvl;
+    });
+
+    if (!availableSlaves.length) {
+      logger.debug('no available slaves to dispatch');
+      return;
+    }
+
+    return availableSlaves.reduce((previousSlave, currentSlave) => {
+      return previousSlave.sysInfo.memory > currentSlave.sysInfo.memory ? previousSlave : currentSlave;
+    });
   }
 
   dispatch(data) {
@@ -83,18 +115,7 @@ class Manager {
       return;
     }
 
-    const availableSlaves = _.values(this.slaves).filter(function(slave) {
-      return slave.status === STATUS.AVAILABLE;
-    });
-
-    if (!availableSlaves.length) {
-      logger.debug('no available slaves to dispatch');
-      return;
-    }
-
-    const availableSlave = availableSlaves.reduce((previousSlave, currentSlave) => {
-      return previousSlave.sysInfo.memory > currentSlave.sysInfo.memory ? previousSlave : currentSlave;
-    });
+    const availableSlave = this.getAvailableSlaves(data.runiOS);
 
     if (availableSlave) {
       logger.debug('%s----->> dispatch to %s with %s %j', EOL, availableSlave.sysInfo.hostname, EOL, data);

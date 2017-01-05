@@ -1,26 +1,22 @@
 'use strict';
 
 const co = require('co');
+const Mail = require('reliable-mail');
+const events = require('reliable-events');
 
-const mailer = require('../../common/mail');
+const config = require('../../common/config').get();
 const models = require('../../common/models');
 const _ = require('../../common/utils/helper');
 const logger = require('../../common/utils/logger');
+
+const mail = new Mail(config);
 
 const User = models.User;
 const Task = models.Task;
 const Project = models.Project;
 const Subscribe = models.Subscribe;
 
-function isUnexpectedTask(taskData) {
-  try {
-    var result = JSON.parse(taskData.extra);
-    return !result.passing;
-  } catch (e) {
-    logger.debug(`JSON parse task ${taskData.projectId} data error!`);
-    return false;
-  }
-}
+const isUnexpectedTask = taskData => taskData.status === 2;
 
 /**
  *
@@ -63,32 +59,60 @@ function *getUserEmailByTaskId(taskId) {
   return mailQueue;
 };
 
-module.exports = co.wrap(function *(data) {
+function *createMailData(taskId, Task, Project) {
   const task = new Task();
-  const taskId = data.taskId;
+  const project = new Project();
+  const data = yield task.getById(taskId);
+  const _data = yield project.getById(data.projectId);
+  const subject = `${_data.title}-task info`;
 
-  const taskData = yield task.getById(taskId);
+  data.title = _data.title;
+  data.subject = subject;
+  data.taskId = taskId;
 
-  if (!taskData) {
-    logger.warn(`taskId: ${taskId} is not found.`);
-    return;
-  }
+  logger.info('task result is %j', data);
+  return data;
+}
 
-  if (data.status === 'available') {
-    yield task.findByIdAndUpdate(taskId, data);
+module.exports = co.wrap(function *(data) {
+  try {
+    const task = new Task();
+    const taskId = data.taskId;
 
-    try {
+    const taskData = yield task.getById(taskId);
+
+    if (!taskData) {
+      logger.warn(`taskId: ${taskId} is not found.`);
+      return;
+    }
+
+    if (data.status === 'available') {
+      yield task.findByIdAndUpdate(taskId, data);
+
       const userEmailList = yield getUserEmailByTaskId(taskId);
 
-      let queue = [];
-      userEmailList.forEach((email) => {
-        queue.push(mailer.sendTaskEndMail(email, taskId));
-      });
-      yield queue;
-    } catch (e) {
-      logger.warn(e.stack);
+      if (data.status === 3) {
+        events.sendToMaster({
+          message: events.EVENTS.TASK_FAILED,
+          data
+        });
+      } else {
+        events.sendToMaster({
+          message: events.EVENTS.TASK_END,
+          data
+        });
+      }
+
+      const mailData = yield createMailData(taskId, Task, Project);
+
+      for (let email of userEmailList) {
+        mail.sendTaskEndMail(email, mailData);
+      }
+
+    } else if (data.status === 'busy') {
+      yield task.findByIdAndPushResult(taskId, data);
     }
-  } else if (data.status === 'busy') {
-    yield task.findByIdAndPushResult(taskId, data);
+  } catch (e) {
+    logger.warn(e.stack);
   }
 });

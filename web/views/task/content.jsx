@@ -3,7 +3,8 @@
 const React = require('react');
 
 const Charts = require('./charts');
-const format = require('../logFormatter');
+const format = require('../logFormatter').format;
+const safe = require('../logFormatter').safe;
 
 class Content extends React.Component {
   constructor(props) {
@@ -100,13 +101,22 @@ class Content extends React.Component {
 
   renderModal() {
     return (
-      <div id="image-modal" className="modal fade" tabindex="-1" role="dialog">
+      <div
+        id="image-modal"
+        className="modal fade"
+        tabIndex="-1"
+        role="dialog">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-body">
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <div className="image">
-              </div>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div className="image"></div>
             </div>
           </div>
         </div>
@@ -142,11 +152,10 @@ class Content extends React.Component {
               </div>
             </div>
             <pre className="trace content-wrapper">
-              <code className="bash" dangerouslySetInnerHTML={{__html: format(this.props.detail.result_string)}}>
-              </code>
+              <ul className="bash" dangerouslySetInnerHTML={{__html: format(this.props.detail.result_string)}}></ul>
             </pre>
             <div id="logs">
-              <div className="bash" dangerouslySetInnerHTML={{__html: this.props.detail.result_string}}>
+              <div className="bash" dangerouslySetInnerHTML={{__html: safe(this.props.detail.result_string)}}>
               </div>
             </div>
             <Charts />

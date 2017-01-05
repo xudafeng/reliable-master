@@ -23,26 +23,30 @@ function *createTask(data) {
 }
 
 module.exports = co.wrap(function *() {
-  const task = new Task();
-  const queueCount = yield task.getQueueCount();
-  const maxNumber = 5;
+  try {
+    const task = new Task();
+    const queueCount = yield task.getQueueCount();
+    const maxNumber = 5;
 
-  if (queueCount > maxNumber) {
-    logger.debug(`queue number is large than ${maxNumber}`);
-    return;
-  }
+    if (queueCount > maxNumber) {
+      logger.debug(`queue number is large than ${maxNumber}`);
+      return;
+    }
 
-  const project = new Project();
-  const projectData = yield project.getExpectedOne();
+    const project = new Project();
+    const projectData = yield project.getExpectedOne();
 
-  if (!projectData) {
-    logger.debug('no project to dispatch');
-    return;
-  }
+    if (!projectData) {
+      logger.debug('no project to dispatch');
+      return;
+    }
 
-  yield createTask(projectData);
+    yield createTask(projectData);
 
-  yield project.updateById(projectData._id, {
-    time: projectData.duration ? Date.now() + projectData.duration : Number.MAX_SAFE_INTEGER
-  });
+    yield project.updateById(projectData._id, {
+      time: projectData.duration ? Date.now() + projectData.duration : Number.MAX_SAFE_INTEGER
+    });
+  } catch (e) {
+    logger.warn(e.stack);
+  };
 });

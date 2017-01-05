@@ -37,7 +37,7 @@ const TaskSchema = new Schema({
   //task description
 
   extra: {
-    type: String
+    type: Object
   },
 
   // task status
@@ -159,6 +159,22 @@ TaskSchema.methods.removeById = function(id) {
 
   Task.findOneAndRemove({
     _id: id
+  }, (error, data) => {
+
+    if (error) {
+      promise.reject(error);
+    } else {
+      promise.resolve(null, data);
+    }
+  });
+  return promise;
+};
+
+TaskSchema.methods.removeByProjectId = function(projectId) {
+  const promise = new P();
+
+  Task.remove({
+    projectId: projectId
   }, (error, data) => {
 
     if (error) {

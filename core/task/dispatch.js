@@ -12,42 +12,51 @@ const Task = models.Task;
 const Project = models.Project;
 
 module.exports = co.wrap(function *() {
-  const task = new Task();
-  const taskData = yield task.getExpectedOne();
+  try {
+    const task = new Task();
+    const taskData = yield task.getExpectedOne();
 
-  if (!taskData) {
-    logger.debug('no queue');
-    return;
-  }
-
-  const project = new Project();
-  const projectData = yield project.getById(taskData.projectId);
-
-  if (!projectData) {
-    logger.debug('no projectData');
-    return;
-  }
-
-  let body = projectData.repositoryUrl;
-
-  body += `#${projectData.repositoryBranch}`;
-  body += `#${projectData.environment}`;
-
-  process.send({
-    message: 'dispatch',
-    data: {
-      body: body,
-      taskId: taskData._id,
-      type: 'task'
+    if (!taskData) {
+      logger.debug('no queue');
+      return;
     }
-  });
+
+    const project = new Project();
+    const projectData = yield project.getById(taskData.projectId);
+
+    if (!projectData) {
+      logger.debug('no projectData');
+      return;
+    }
+
+    let body = projectData.repositoryUrl;
+
+    body += `#${projectData.repositoryBranch}`;
+    body += `#${projectData.environment}`;
+
+    process.send({
+      message: 'dispatchTask',
+      data: {
+        body: body,
+        taskId: taskData._id,
+        type: 'task',
+        runiOS: projectData.runiOS
+      }
+    });
+  } catch (e) {
+    logger.warn(e.stack);
+  }
 });
 
 module.exports.success = co.wrap(function *(data, slave) {
-  const task = new Task();
-  yield task.updateById(data.taskId, {
-    status: 1,
-    slaveId: slave.sysInfo.hostname,
-    start_at: Date.now()
-  });
+  try {
+    const task = new Task();
+    yield task.updateById(data.taskId, {
+      status: 1,
+      slaveId: slave.sysInfo.hostname,
+      start_at: Date.now()
+    });
+  } catch (e) {
+    logger.warn(e.stack);
+  }
 });

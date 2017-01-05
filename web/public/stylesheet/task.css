@@ -57,8 +57,14 @@
   box-shadow: 0 2px 1px rgba(0,0,0,.04), inset 0 -1px 2px rgba(0,0,0,.05);
 }
 
+.trace {
+  padding: 0;
+}
+
 .trace.content-wrapper {
   margin-bottom: 10px;
+  background-color: #222;
+  color: #fff;
 }
 
 .breadcrumb {
@@ -161,4 +167,33 @@ th, td {
     border: 1px solid #cfcfcf;
     border-radius: 2px;
     background: rgba(0, 0, 0, .1);
+}
+
+.bash {
+  margin: 0;
+  padding: 0;
+}
+
+.bash li {
+  display: table-row;
+  list-style-type: none;
+}
+
+.bash li .line {
+  display: table-cell;
+  padding: 5px;
+}
+
+.bash li .content {
+  display: table-cell;
+  padding: 5px;
+  white-space: pre-wrap
+}
+
+.bash .fold-wrap {
+  text-align: center;
+  cursor: pointer;
+  background: rgba(255, 255, 255, .2);
+  user-select: none;
+  border-bottom: 1px solid #222;
 }

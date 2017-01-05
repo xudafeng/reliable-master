@@ -4,6 +4,7 @@ const path = require('path');
 const EOL = require('os').EOL;
 const cluster = require('cluster');
 const program = require('commander');
+const events = require('reliable-events');
 
 const Task = require('../core').Task;
 const Slave = require('../core').Slave;
@@ -39,8 +40,23 @@ exports.initWithBin = function() {
   });
 
   cluster
-    .on('fork', () => {
+    .on('fork', worker => {
       logger.debug('worker fork success');
+
+      worker.on('message', function(e) {
+        switch (e.message) {
+          case 'killMaster':
+            process.exit(-1);
+            break;
+        }
+
+        events.sendToSingleCluster(e, this);
+      });
+
+      worker.send({
+        message: 'startServer',
+        data: options
+      });
     })
     .on('online', () => {
       logger.debug('worker online');
@@ -65,25 +81,27 @@ exports.initWithBin = function() {
       logger.debug(`worker error happened: ${err}`);
     });
 
-  process.on('uncaughtException', function(err) {
-    logger.debug(`Caught exception: ${err.stack}`);
-  });
-
   for (let i = 0; i < options.server.worker; i++) {
     cluster.fork();
   }
-
-  Object.keys(cluster.workers).forEach(id => {
-    cluster.workers[id].on('message', e => {
-      switch (e.message) {
-        case 'killMaster':
-          process.exit(-1);
-          break;
-      }
-    });
-    cluster.workers[id].send({
-      message: 'startServer',
-      data: options
-    });
-  });
 };
+
+process.on('error', err => {
+  logger.error('------------ error ------------\n%s', err.stack);
+});
+
+process.on('uncaughtException', err => {
+  logger.error('------------ uncaughtException ------------\n%s', err.stack);
+});
+
+process.on('rejectionHandled', err => {
+  logger.error('------------ rejectionHandled ------------\n%s', err.stack);
+});
+
+process.on('unhandledRejection', err => {
+  logger.error('------------ unhandledRejection ------------\n%s', err.stack);
+});
+
+process.on('warning', warning => {
+  logger.warn('------------ warning ------------\n%s', warning.stack);
+});

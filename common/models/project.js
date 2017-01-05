@@ -54,6 +54,16 @@ const ProjectSchema = new Schema({
   },
 
   /**
+   * whether run ios task
+   * true - > yes, iOS / Android / PC
+   * false - > no, Android / PC
+   */
+  runiOS: {
+    type: Boolean,
+    default: false
+  },
+
+  /**
    * status for project
    * 0 - > open
    * 1 - > close
