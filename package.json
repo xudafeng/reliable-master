@@ -53,6 +53,7 @@
     "command-line-test": "^1.0.5",
     "eslint": "~1.1.0",
     "eslint-plugin-react": "~3.2.3",
+    "git-contributor": "^1.0.8",
     "istanbul": "*",
     "json-loader": "~0.5.2",
     "jsx-loader": "~0.13.2",
@@ -65,7 +66,8 @@
   },
   "scripts": {
     "test": "make test",
-    "lint": "make lint"
+    "lint": "make lint",
+    "contributor": "git-contributor"
   },
   "pre-commit": [
     "lint"
