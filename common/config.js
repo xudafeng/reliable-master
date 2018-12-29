@@ -19,7 +19,7 @@ const defaultCfg = {
     baseurl: 'http://reliable-test.com',
     locale: 'en-US',
     docurl: 'reliablejs.github.io',
-    issueurl: 'https://github.com/alibaba/reliable/issues',
+    issueurl: 'https://github.com',
     login: true
   },
   auth: {

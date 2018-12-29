@@ -75,6 +75,5 @@
   "engines": {
     "node": ">=4.2.1"
   },
-  "homepage": "https://reliablejs.github.io/reliable",
   "license": "MIT"
 }
