@@ -25,9 +25,11 @@
     "eslint-config-antife": "^1.0.3",
     "eslint-config-egg": "^6.0.0",
     "git-contributor": "^1.0.8",
+    "macaca-ecosystem": "*",
     "mysql2": "^1.6.4",
     "sinon": "^6.1.4",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "vuepress": "^0.14.8"
   },
   "engines": {
     "node": ">=8.9.0"
@@ -55,7 +57,9 @@
     "db:seed:all": "sequelize db:seed:all",
     "db:seed:undo:all": "sequelize db:seed:undo:all",
     "migration:generate": "sequelize migration:generate --name",
-    "seed:generate": "sequelize seed:generate --name"
+    "seed:generate": "sequelize seed:generate --name",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "repository": {
     "type": "git",
