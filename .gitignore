@@ -8,7 +8,8 @@ coverage/
 .nyc_output
 .idea/
 .vscode/
-app/public/
+app/public/**/*.js
+app/public/**/*.css
 run/
 .DS_Store
 *.sw*
