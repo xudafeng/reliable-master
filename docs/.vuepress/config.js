@@ -47,7 +47,7 @@ module.exports = {
   themeConfig: {
     repo: `macacajs/${name}`,
     editLinks: true,
-    docsDir: 'docs_src',
+    docsDir: 'docs',
     locales: {
       '/': {
         label: 'English',
@@ -104,7 +104,6 @@ function genSidebarConfig(guide) {
       collapsable: false,
       children: [
         '',
-        'usage',
       ],
     },
   ];
