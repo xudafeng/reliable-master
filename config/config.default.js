@@ -81,8 +81,6 @@ module.exports = appInfo => {
   config.reliableView = {
     serverUrl: '',
     reliableHost,
-    assetsUrl: `//${reliableHost}:8080`,
-    staticUrl: `//${staticHost}:9920`,
   };
 
   config.security = {
