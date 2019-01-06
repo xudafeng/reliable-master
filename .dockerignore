@@ -1,0 +1,15 @@
+node_modules
+test
+run
+docker
+logs
+.idea
+.npmignore
+.travis.yml
+.gitignore
+.git
+.eslintrc
+.eslintignore
+.autod.conf.js
+*.md
+*.yml

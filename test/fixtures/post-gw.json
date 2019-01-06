@@ -1,0 +1,67 @@
+{
+  "files": [
+    "http://local/readmd.md"
+  ],
+  "packages": [
+    {
+      "path": "http://host/1.zip",
+      "type": "type1",
+      "version": "1.0.0"
+    },
+    {
+      "path": "http://host/2.zip",
+      "type": "type2",
+      "version": "1.0.0"
+    },
+    {
+      "path": "http://host/3.zip",
+      "type": "type3",
+      "version": "1.0.0"
+    }
+  ],
+  "testInfo": {
+    "tests": 16,
+    "passes": 16,
+    "linePercent": 95.24,
+    "passPercent": 100,
+    "testHtmlReporterPath": "http://host/index.html",
+    "coverageHtmlReporterPath": "http://host/index.html"
+  },
+  "extraInfo": {
+  },
+  "environment": {
+    "os": {
+      "platform": "linux",
+      "nodeVersion": "v8.11.4"
+    },
+    "ci": {
+      "RUNNER_TYPE": "GITLAB_CI",
+      "JOB_NAME": "jobName",
+      "BUILD_NUMBER": "11"
+    },
+    "platform": "web"
+  },
+  "gitCommitInfo": {
+    "body": "",
+    "hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "author": {
+      "date": "1535946242",
+      "name": "user",
+      "email": "user@domain",
+      "relativeDate": "32 hours ago"
+    },
+    "gitTag": "",
+    "gitUrl": "http://host/group/repo",
+    "subject": "git subject",
+    "committer": {
+      "date": "1536061959",
+      "name": "user",
+      "email": "user@domain",
+      "relativeDate": "5 minutes ago"
+    },
+    "gitBranch": "feat/dev",
+    "gitRemote": "http://host/group/repo.git",
+    "shortHash": "ecb4bac",
+    "sanitizedSubject": "clean-up"
+  }
+}
