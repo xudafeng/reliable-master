@@ -67,5 +67,5 @@ export default {
   'insight.test.duration': 'Duration avg',
   'insight.test.duration.history': 'Duration History',
   'insight.committer': 'Last Commit',
-  'insight.dateRange.tip': 'Please select range or query entire data'
+  'insight.dateRange.tip': 'Please select range or query entire data',
 };

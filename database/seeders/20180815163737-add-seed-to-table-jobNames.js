@@ -11,7 +11,7 @@ module.exports = {
       'bar',
     ].map(
       item => {
-        console.log('item')
+        console.log('item');
         return {
           jobName: item,
           uniqId: uuidv4(),
@@ -20,7 +20,7 @@ module.exports = {
         };
       }
     ));
-    console.log('finish up')
+    console.log('finish up');
   },
 
   down: async queryInterface => {

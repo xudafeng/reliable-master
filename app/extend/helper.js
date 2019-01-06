@@ -3,7 +3,7 @@
 const debug = require('debug')('reliable:reliable-dingtalk');
 const ChatBot = require('dingtalk-robot-sender');
 
-const sendMarkdown = async (options) => {
+const sendMarkdown = async options => {
   debug(options);
   const robot = new ChatBot({
     webhook: options.webhook.url,
@@ -17,7 +17,7 @@ const sendMarkdown = async (options) => {
 
 module.exports = {
   sendMarkdown,
-  sendDingTalk: async function ({
+  async sendDingTalk({
     webhook,
     data,
     staticServerUrl,
@@ -48,7 +48,7 @@ module.exports = {
 
     text.push('#### Test report');
     const staticUrl = `${staticServerUrl}/jenkins/${ci.JOB_NAME}/${ci.BUILD_NUMBER}/`;
-    const buildStaticPath = path => /^https?:\/\//.test(path) ? path : staticUrl + path;
+    const buildStaticPath = path => (/^https?:\/\//.test(path) ? path : staticUrl + path);
     const passLogUrl = buildStaticPath(testInfo.testHtmlReporterPath);
 
     if (testInfo && testInfo.tests) {
@@ -84,5 +84,5 @@ module.exports = {
     } catch (e) {
       console.log(e.stack);
     }
-  }
+  },
 };

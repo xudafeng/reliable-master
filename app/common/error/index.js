@@ -18,5 +18,5 @@ module.exports = new Map([
     'ERR_RELIABLE_BUILD_RECORD_NOT_FOUND', {
       message: 'Build record not found.',
     },
-  ]
+  ],
 ]);

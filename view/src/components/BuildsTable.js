@@ -88,7 +88,7 @@ export default class BuildsTable extends React.Component {
               res && message.success('UniqId copied to clipboard.');
             });
           }} className="builds-table-uniqId-tip"
-            type="copy" theme="filled" style={{ color: '#2593fc' }}
+          type="copy" theme="filled" style={{ color: '#2593fc' }}
           />
         </Popover>
       </span>
@@ -127,7 +127,7 @@ export default class BuildsTable extends React.Component {
           ? <Link
             to={{
               pathname: '/buildinfo',
-              search: `?jobName=${record.jobName}&buildNumber=${record.buildNumber}`
+              search: `?jobName=${record.jobName}&buildNumber=${record.buildNumber}`,
             }}
           >
             <Icon type="right-circle" theme="outlined" />
@@ -135,10 +135,10 @@ export default class BuildsTable extends React.Component {
           : ''
       );
     },
-  }
-];
+  },
+  ];
 
-  render() {
+  render () {
     return (
       <div>
         <Table

@@ -18,7 +18,6 @@ import pkg from '../../package.json';
 import './Setting.less';
 
 export default class Setting extends React.Component {
-
   render () {
     return (
       <ReliableLayout>
