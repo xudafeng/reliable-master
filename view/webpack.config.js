@@ -27,8 +27,8 @@ module.exports = (env, argv) => {
     },
 
     output: {
-      path: path.join(__dirname, '..', 'app', 'public', 'dist'),
-      publicPath: 'dist',
+      path: path.join(__dirname, '..', 'app', 'public'),
+      publicPath: 'public',
       filename: '[name].js',
     },
 
