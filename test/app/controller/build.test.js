@@ -56,7 +56,7 @@ describe('test/app/controller/build.test.js', function() {
     assert(body.data.result[1].createdAt);
   });
 
-  it('GET /api/build/:jobName query by jobName', async () => {
+  it.skip('GET /api/build/:jobName query by jobName', async () => {
     await insertData({
       environment: {
         ci: {
