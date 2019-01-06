@@ -22,8 +22,10 @@
     "egg-bin": "^4.3.5",
     "egg-mock": "^3.14.0",
     "eslint": "^4.11.0",
+    "eslint-config-antife": "^1.0.3",
     "eslint-config-egg": "^6.0.0",
     "git-contributor": "^1.0.8",
+    "mysql2": "^1.6.4",
     "sinon": "^6.1.4",
     "uuid": "^3.3.2"
   },
