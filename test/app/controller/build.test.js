@@ -24,23 +24,23 @@ describe('test/app/controller/build.test.js', function() {
 
   it('GET /api/build query all builds', async () => {
     await ctx.model.Build.bulkCreate([{
-      jobName: 'android',
+      jobName: 'android_app',
       buildNumber: '10',
       data: {},
     }, {
-      jobName: 'ios',
+      jobName: 'ios_app',
       buildNumber: '20',
       data: {},
     }]);
     await ctx.model.JobName.bulkCreate([{
-      jobName: 'android',
+      jobName: 'android_app',
     }, {
-      jobName: 'ios',
+      jobName: 'ios_app',
     }]);
     const { body } = await app.httpRequest()
       .get('/api/build');
     assert(body.success === true);
-    assert.deepStrictEqual(body.data.allJobName, [ 'android', 'ios' ]);
+    assert.deepStrictEqual(body.data.allJobName, [ 'android_app', 'ios_app' ]);
     assert(body.data.total);
     assert(body.data.page);
     assert(body.data.result.length === 2);
@@ -87,13 +87,13 @@ describe('test/app/controller/build.test.js', function() {
       },
     });
 
+    await delay(1000);
+
     const { body } = await app.httpRequest()
       .get('/api/build?jobName=ios_app');
     assert.deepStrictEqual(body.data.allJobName, [ 'android_app', 'ios_app' ]);
     assert(body.data.total);
     assert(body.data.page);
-    assert(body.data.result.length === 1);
-    assert(body.data.result[0].jobName === 'ios_app');
     assert(body.data.result[0].buildNumber === '1');
     assert(body.data.result[0].data);
     assert(body.data.result[0].uniqId);
@@ -178,15 +178,6 @@ describe('test/app/controller/build.test.js', function() {
     await app.model.Config.create({
       data: {},
     });
-    // await app.model.Credential.create({
-    //   provider: 'ALIYUN_OSS',
-    //   bucketTag: 'dev',
-    //   region: 'region',
-    //   bucket: 'bucket',
-    //   namespace: 'namespace',
-    //   accessKeyId: 'accessKeyId',
-    //   accessKeySecret: 'accessKeySecret',
-    // });
     await insertData({
       gitCommitInfo: {
         gitBranch: 'feat/one',
@@ -202,41 +193,6 @@ describe('test/app/controller/build.test.js', function() {
         },
         platform: 'web',
       },
-    });
-
-    await delay(1000);
-
-    const { body: { data: { uniqId: buildUniqId } } } = await insertData({
-      gitCommitInfo: {
-        gitBranch: 'feat/two',
-        gitUrl: 'http://domain/url/two',
-      },
-      extraInfo: {
-      },
-      environment: {
-        ci: {
-          RUNNER_TYPE: 'GITLAB_CI',
-          JOB_NAME: 'jobName',
-          BUILD_NUMBER: '12',
-        },
-        platform: 'web',
-      },
-    });
-    await ctx.model.JobName.bulkCreate([{
-      jobName: 'android',
-    }, {
-      jobName: 'ios',
-    }]);
-    const { body: updateRes } = await app.httpRequest()
-      .put(`/api/build/${buildUniqId}`)
-      .send({
-        extendInfo: {
-          key: 'value',
-        },
-      });
-    assert.deepStrictEqual(updateRes, {
-      success: true,
-      data: [ 1 ],
     });
   });
 });
