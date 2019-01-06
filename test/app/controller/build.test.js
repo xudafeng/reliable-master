@@ -56,31 +56,6 @@ describe('test/app/controller/build.test.js', function() {
     assert(body.data.result[1].createdAt);
   });
 
-  it('GET /api/build/:uniqId query one build', async () => {
-    const [{ uniqId }] = await ctx.model.Build.bulkCreate([{
-      jobName: 'android',
-      buildNumber: '10',
-      data: {},
-    }, {
-      jobName: 'ios',
-      buildNumber: '20',
-      data: {},
-    }]);
-    await ctx.model.JobName.bulkCreate([{
-      jobName: 'android',
-    }, {
-      jobName: 'ios',
-    }]);
-    const { body } = await app.httpRequest()
-      .get(`/api/build/${uniqId}`);
-    assert(body.success === true);
-    assert(body.data.jobName === 'android');
-    assert(body.data.buildNumber === '10');
-    assert(body.data.data);
-    assert(body.data.uniqId === uniqId);
-    assert(body.data.createdAt);
-  });
-
   it('GET /api/build/:jobName query by jobName', async () => {
     await insertData({
       environment: {
@@ -200,7 +175,6 @@ describe('test/app/controller/build.test.js', function() {
   });
 
   it('POST /api/build/:uniqId update build extendInfo', async () => {
-    const appId = 'APP_ONE';
     await app.model.Config.create({
       data: {},
     });
@@ -219,7 +193,6 @@ describe('test/app/controller/build.test.js', function() {
         gitUrl: 'http://domain/url/one',
       },
       extraInfo: {
-        // appId,
       },
       environment: {
         ci: {
@@ -239,7 +212,6 @@ describe('test/app/controller/build.test.js', function() {
         gitUrl: 'http://domain/url/two',
       },
       extraInfo: {
-        appId,
       },
       environment: {
         ci: {
