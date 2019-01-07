@@ -42,17 +42,6 @@ RUN curl -SLO "$NODE_REGISTRY/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.g
       && tar -xzf "node-v$NODE_VERSION-linux-x64.tar.gz" -C /usr/local --strip-components=1 \
       && rm "node-v$NODE_VERSION-linux-x64.tar.gz"
 
-COPY . /root/reliable-web
-
-WORKDIR /root/reliable-web
-
-ENV MYSQL_HOST=mysql-host
-
-RUN npm install --production --verbose && ln -s /root/logs .
-
-HEALTHCHECK --interval=10s --retries=6 \
-  CMD wget -O /dev/null localhost:9900 || echo 1
-
 ENTRYPOINT ["./entrypoint.sh"]
 
 EXPOSE 9900
