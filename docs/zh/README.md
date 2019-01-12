@@ -12,4 +12,4 @@ footer: MIT Licensed | Copyright © 2015-present Macaca
 当然，UITest 也支持在命令行环境运行。
 :::
 
-![](http://ww1.sinaimg.cn/large/6d308bd9gw1f6wsibnfldg20nk0gr7kg.gif)
+![](https://wx3.sinaimg.cn/large/6d308bd9ly1fz3wii2wqsj21bh0u0qij.jpg)
