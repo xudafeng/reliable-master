@@ -14,11 +14,10 @@ class GwController extends Controller {
   async index() {
     const ctx = this.ctx;
     const { state = BUILD_STATE_SUCCESS, ...data } = ctx.request.body;
-    // TODO remove
-    const jobName = ctx.safeGet(data, 'environment.ci.JOB_NAME')
-      || ctx.safeGet(data, 'environment.gitlab_ci.JOB_NAME');
-    const buildNumber = ctx.safeGet(data, 'environment.ci.BUILD_NUMBER')
-      || ctx.safeGet(data, 'environment.gitlab_ci.BUILD_NUMBER');
+
+    const jobName = ctx.safeGet(data, 'environment.ci.JOB_NAME');
+    const buildNumber = ctx.safeGet(data, 'environment.ci.BUILD_NUMBER');
+
     if (!jobName || !buildNumber) {
       ctx.fail('ERR_RELIABLE_INVALID_PARAM_ERROR', 'environment.ci.JOB_NAME and environment.ci.BUILD_NUMBER are required.');
       return;
