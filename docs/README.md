@@ -12,4 +12,4 @@ footer: MIT Licensed | Copyright © 2015-present Macaca
 UITest support running in the browser.
 :::
 
-![](http://ww3.sinaimg.cn/large/6d308bd9gw1f6wsic5dmxj20rl0qqtbi.jpg)
+![](https://wx3.sinaimg.cn/large/6d308bd9ly1fz3wii2wqsj21bh0u0qij.jpg)
