@@ -16,10 +16,9 @@ class HomeController extends Controller {
       },
       user,
     }, {
-      title: 'Reliable Platform',
+      title: 'Reliable Suites for Macaca',
       pageId: 'home',
       SERVER_ADDRESS: this.config.reliableView.serverUrl,
-      STATIC_ADDRESS: this.config.reliableView.staticUrl,
       assetsUrl: this.config.reliableView.assetsUrl,
       version: this.app.config.pkg.version,
     });

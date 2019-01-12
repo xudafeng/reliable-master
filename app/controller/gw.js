@@ -23,6 +23,7 @@ class GwController extends Controller {
       return;
     }
     const gitBranch = ctx.safeGet(data, 'gitCommitInfo.gitBranch');
+
     if (!gitBranch) {
       ctx.fail('ERR_RELIABLE_INVALID_PARAM_ERROR', 'gitCommitInfo.gitBranch is required.');
       return;
