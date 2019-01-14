@@ -78,19 +78,6 @@ export default class BuildsTable extends React.Component {
     render: (text, record) => (
       <span>
         {dayjs(text).format('YYYY-MM-DD HH:mm:ss')}
-        <Popover content={
-          <div>
-            <p>uniqId: {record.buildUniqId}</p>
-          </div>
-        } trigger="hover" placement="top">
-          <Icon onClick={() => {
-            Clipboard.write(record.buildUniqId).then(res => {
-              res && message.success('UniqId copied to clipboard.');
-            });
-          }} className="builds-table-uniqId-tip"
-          type="copy" theme="filled" style={{ color: '#2593fc' }}
-          />
-        </Popover>
       </span>
     ),
   }, {
@@ -109,13 +96,6 @@ export default class BuildsTable extends React.Component {
       <span>
         {record.gitCommitInfo.committer.name}
       </span>,
-  }, {
-    title: <FormattedMessage id='buildinfo.state' />,
-    dataIndex: 'state',
-    width: 90,
-    render: (text, record) => {
-      return record.state === 'INIT' ? 'init' : 'done';
-    },
   }, {
     title: <FormattedMessage id='builds.detailInfo' />,
     align: 'center',

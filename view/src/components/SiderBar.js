@@ -32,7 +32,7 @@ export default class SiderBar extends React.Component {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={[location.pathname]}
+          defaultSelectedKeys={[location.pathname === '/' ? '/insight' : location.pathname]}
           defaultOpenKeys={[location.pathname]}
           onClick={this.handleMenuClick.bind(this)}
         >
