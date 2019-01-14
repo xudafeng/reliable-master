@@ -76,7 +76,6 @@ module.exports = appInfo => {
   };
 
   const reliableHost = process.env.RELIABLE_HOST || '127.0.0.1';
-  const staticHost = process.env.STATIC_HOST || reliableHost;
 
   config.reliableView = {
     serverUrl: '',
