@@ -12,7 +12,7 @@ describe('test/app/controller/home.test.js', () => {
   it('GET /', () => {
     return app.httpRequest()
       .get('/')
-      .expect(/Reliable Platform/)
+      .expect(/Reliable Suites for Macaca/)
       .expect(200);
   });
 });
