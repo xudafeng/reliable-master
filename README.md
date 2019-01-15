@@ -1,6 +1,6 @@
 # Reliable
 
-[中文版](README.zh-CN.md)
+[中文版](README.zh-CN.md) | [Offcial Site](//macacajs.github.io/reliable)
 
 <p align="center">
   <a href="//macacajs.github.io/reliable">
@@ -33,6 +33,18 @@
 [docker-url]: https://hub.docker.com/r/macacajs/reliable-web/
 
 > Testing management suite with continuous delivery support.
+
+<!-- GITCONTRIBUTOR_START -->
+
+## Contributors
+
+|[<img src="https://avatars1.githubusercontent.com/u/1011681?v=4" width="100px;"/><br/><sub><b>xudafeng</b></sub>](https://github.com/xudafeng)<br/>
+| :---: |
+
+
+This project follows the git-contributor [spec](https://github.com/xudafeng/git-contributor), auto upated at `Wed Jan 16 2019 01:21:11 GMT+0800`.
+
+<!-- GITCONTRIBUTOR_END -->
 
 ## Docs
 

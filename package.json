@@ -60,7 +60,8 @@
     "migration:generate": "sequelize migration:generate --name",
     "seed:generate": "sequelize seed:generate --name",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "contributor": "git-contributor"
   },
   "husky": {
     "hooks": {
