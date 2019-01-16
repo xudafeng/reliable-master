@@ -20,3 +20,9 @@ Reliable is suitable for working with existing R&D processes in the continuous i
 :::
 
 ![](https://wx3.sinaimg.cn/large/6d308bd9ly1fz3wii2wqsj21bh0u0qij.jpg)
+
+::: tip Deploy
+Reliable supports one-click deployment, quickly has your own test management platform.
+:::
+
+![](http://ww2.sinaimg.cn/large/6d308bd9gw1f5scrp1p4rj20rs0gatbj.jpg)

@@ -103,25 +103,19 @@ function genSidebarConfig(arr) {
       title: arr[0],
       collapsable: false,
       children: [
-        'marmot-web-deploy',
+        'reliable-cli',
+        'reliable-web-deploy',
       ],
     },
     {
       title: arr[1],
       collapsable: false,
       children: [
+        'integrate-with-jenkins',
         'jenkins-web',
         'jenkins-ios',
         'jenkins-android',
-        'integrate-with-jenkins',
         'integrate-with-gitlab-ci',
-      ],
-    },
-    {
-      title: arr[2],
-      collapsable: false,
-      children: [
-        '',
       ],
     },
   ];

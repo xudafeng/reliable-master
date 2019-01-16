@@ -20,3 +20,9 @@ Reliable 适合在持续集成阶段与现有研发流程打通和衔接，当�
 :::
 
 ![](https://wx3.sinaimg.cn/large/6d308bd9ly1fz3wii2wqsj21bh0u0qij.jpg)
+
+::: tip 部署便捷
+Reliable 一键部署，拥有自己的测试管理平台。
+:::
+
+![](http://ww2.sinaimg.cn/large/6d308bd9gw1f5scrp1p4rj20rs0gatbj.jpg)
