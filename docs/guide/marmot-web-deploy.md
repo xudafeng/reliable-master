@@ -1,14 +1,14 @@
-# Reliable Web 部署文档
+# Reliable Web Deploy
 
 ---
 
-## Docker 部署
+## Docker Deploy
 
-### 使用 [docker-compose](https://docs.docker.com/compose/) (推荐)
+### Using [docker-compose](https://docs.docker.com/compose/) (recommended)
 
-## 生产环境
+## production
 
-```bash
+```
 # start services
 $ docker-compose -p reliable -f docker-compose.yml up -d
 
@@ -18,7 +18,7 @@ $ docker-compose -p reliable -f docker-compose.yml up -d
 $ docker-compose -p reliable -f docker-compose.yml down
 ```
 
-执行 `docker ps` 我们能够看到以下容器：
+execute `docker ps`, we can see:
 
 ```
 CONTAINER ID        IMAGE                     COMMAND                  CREATED             STATUS                      PORTS                                            NAMES
@@ -27,7 +27,7 @@ b726a3232cdc        macacajs/reliable-mysql     "docker-entrypoint.s…"   12 mi
 ffb2ab9f12fb        macacajs/reliable-nginx     "nginx -g 'daemon of…"   12 minutes ago      Up 12 minutes               0.0.0.0:9920->80/tcp                             reliable_nginx_1
 ```
 
-进入 MySQL
+go into the MySQL
 
 ```bash
 $ docker exec -it reliable_mysql_1 mysql -uroot -preliable
@@ -36,9 +36,9 @@ mysql> show tables;
 mysql> select * from reliable.jobNames;
 ```
 
-## 开发环境
+## development
 
-```bash
+```
 # start services
 $ docker-compose up
 
@@ -46,14 +46,13 @@ $ docker-compose up
 $ docker-compose down
 ```
 
-Reliable 服务默认运行在 `http://127.0.0.1:9900`。
+Reliable server is running on `http://127.0.0.1:9900` by default.
 
-Nginx 服务默认运行在 `http://127.0.0.1:9920`。
+Nginx server is running on `http://127.0.0.1:9920` by default.
 
-需要按需修改 [docker-compose.yml](../docker-compose.yml) 配置。
+should edit [docker-compose.yml](../docker-compose.yml) on demand.
 
-### 其他 [Docker](https://docs.docker.com/) 服务部署
+### Using [docker](https://docs.docker.com/)
 
-- [reliable-web](../docker/reliable-web/README.md)
-- [reliable-mysql](../docker/reliable-mysql/README.md)
-- [reliable-nginx](../docker/reliable-nginx/README.md)
+- [reliable-web](../../docker/reliable-web/README.md)
+- [reliable-mysql](../../docker/reliable-mysql/README.md)

@@ -68,7 +68,7 @@ module.exports = {
           macacaEcosystem.en,
         ],
         sidebar: {
-          '/guide/': genSidebarConfig('Guide', 'Usage', 'Advanced'),
+          '/guide/': genSidebarConfig(['Guide', 'CI/CD', 'Community']),
         },
       },
       '/zh/': {
@@ -90,17 +90,35 @@ module.exports = {
           macacaEcosystem.zh,
         ],
         sidebar: {
-          '/zh/guide/': genSidebarConfig('指南'),
+          '/zh/guide/': genSidebarConfig(['使用指南', '持续集成', '社区支持']),
         },
       },
     },
   },
 };
 
-function genSidebarConfig(guide) {
+function genSidebarConfig(arr) {
   return [
     {
-      title: guide,
+      title: arr[0],
+      collapsable: false,
+      children: [
+        'marmot-web-deploy',
+      ],
+    },
+    {
+      title: arr[1],
+      collapsable: false,
+      children: [
+        'jenkins-web',
+        'jenkins-ios',
+        'jenkins-android',
+        'integrate-with-jenkins',
+        'integrate-with-gitlab-ci',
+      ],
+    },
+    {
+      title: arr[2],
       collapsable: false,
       children: [
         '',
